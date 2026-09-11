@@ -1,0 +1,5947 @@
+/* =========================================================
+   TRAVELOPTIM MADRID
+   FEUILLE DE STYLE PRINCIPALE
+
+   SOMMAIRE
+
+   01. Base et normalisation
+   02. Conteneur principal
+   03. Langue
+   04. Titres
+   05. Accueil
+   06. Menu principal
+   07. En-tête universel
+   08. Guide
+   09. Catégories
+   10. En-tête de catégorie
+   11. Modules génériques
+   12. Carrousel
+   13. Images et crédits photo
+   14. Titres et informations des cartes
+   15. Cartes programme
+   16. Cartes éditoriales
+   17. Transport — réseau métro
+   18. Favoris
+   19. Éléments éditoriaux
+   20. Face arrière des cartes
+   21. Commandes du carrousel
+
+   22. Itinéraires
+       22.1 Dos de la carte
+       22.2 Défilement
+       22.3 Stations départ / arrivée
+       22.4 Badges métro
+       22.5 Étapes
+       22.6 Miniatures
+       22.7 Noms
+       22.8 Commentaires
+       22.9 Connecteurs
+       22.10 Marche
+       22.11 Transfert métro
+       22.12 Stations intermédiaires
+       22.13 Ligne métro
+       22.14 Couleurs métro
+
+   23. Carte interactive
+       23.1 Conteneur
+       23.2 Stations de métro
+       23.3 Contrôles
+       23.4 Marqueurs des lieux
+       23.5 Marqueurs incontournables
+       23.6 Popup lieu
+       23.7 Popup station
+       23.8 Filtres
+       23.9 Menu principal
+       23.10 Plein écran
+       23.11 Recherche et géolocalisation
+       23.12 Lieux à proximité
+       23.13 Mes favoris
+       23.14 Résultats externes
+       23.15 Ajustements mobile des filtres
+
+   24. Responsive — tablette
+   25. Responsive — mobile
+
+   26. Planifier mon séjour
+       26.1 Carte principale
+       26.2 Faces
+       26.3 Contenu général
+       26.4 Titre et introduction
+       26.5 Invitation au service
+       26.6 Prototype
+       26.7 Aperçu du prototype
+       26.8 Bouton exemple
+       26.9 Processus
+       26.10 Tarif et transparence
+       26.11 CTA
+       26.12 Face formulaire
+       26.13 Responsive tablette
+       26.14 Responsive mobile
+       26.15 Très petits écrans
+       26.16 Formulaire de planification
+       26.17 Choix
+       26.18 Favoris
+       26.18.1 Liste des favoris
+       26.19 Envoi du formulaire
+       26.20 Formulaire — mobile
+       26.21 Ajustements des choix
+       26.22 Confirmation d'envoi
+       26.23 Âge des enfants
+
+   NOTE
+   L'ordre des règles CSS est volontairement conservé afin de
+   préserver exactement la cascade et le rendu de l'application.
+========================================================= */
+
+
+/* =========================================================
+   01. BASE
+========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+[hidden] {
+  display: none !important;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+body {
+  min-height: 100vh;
+
+  padding: 40px 20px;
+
+  background:
+  linear-gradient(
+    rgba(244, 244, 244, 0.70),
+    rgba(244, 244, 244, 0.70)
+  ),
+    url("madrid-background.webp")
+    center center / cover
+    fixed
+    no-repeat;
+
+  color: #222;
+
+  font-family: Arial, sans-serif;
+}
+
+
+button,
+a {
+  font: inherit;
+}
+
+
+button {
+  color: inherit;
+}
+
+
+/* =========================================================
+   02. CONTENEUR PRINCIPAL
+========================================================= */
+
+.prototype {
+  width: 100%;
+  max-width: 1400px;
+
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   03. LANGUE
+========================================================= */
+
+.language-button {
+  padding: 5px 8px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #777;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.language-button:hover {
+  transform: scale(1.05);
+}
+
+
+.language-button.active {
+  color: #257b8c;
+
+  font-weight: 800;
+}
+
+
+.language-separator {
+  color: #bbb;
+}
+
+
+/* =========================================================
+   04. TITRES
+========================================================= */
+
+.section-title,
+.category-title {
+  text-align: center;
+
+  font-size: 1.45rem;
+
+  color: #222;
+}
+
+
+/* =========================================================
+   05. ACCUEIL
+========================================================= */
+
+.welcome-view {
+  position: fixed;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+
+  z-index: 1000;
+
+  background:
+    url("madrid-background.webp")
+    center center / cover
+    no-repeat;
+}
+
+
+.welcome-overlay {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 30px 20px;
+
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.20),
+      rgba(0, 0, 0, 0.48)
+    );
+}
+
+
+.welcome-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 24px;
+
+  text-align: center;
+}
+
+
+.welcome-logo {
+  width: auto;
+  max-width: 240px;
+  height: auto;
+}
+
+
+.welcome-language-switcher {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 8px;
+}
+
+
+.welcome-language-switcher
+.language-button {
+  color:
+    rgba(255, 255, 255, 0.72);
+}
+
+
+.welcome-language-switcher
+.language-button.active {
+  color: #fff;
+}
+
+
+.welcome-language-switcher
+.language-separator {
+  color:
+    rgba(255, 255, 255, 0.55);
+}
+
+
+.welcome-title {
+  color: #fff;
+
+  font-size:
+    clamp(
+      2.2rem,
+      5vw,
+      4.5rem
+    );
+
+  line-height: 1.1;
+
+  text-shadow:
+    0 3px 15px
+    rgba(0, 0, 0, 0.35);
+}
+
+
+.welcome-explore-button {
+  padding: 14px 30px;
+
+  border: 2px solid #fff;
+  border-radius: 28px;
+
+  background:
+    rgba(58, 166, 185, 0.9);
+
+  color: #fff;
+
+  font-size: 1rem;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 6px 20px
+    rgba(0, 0, 0, 0.2);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+
+.welcome-explore-button:hover {
+  background: #3AA6B9;
+
+  transform:
+    translateY(-2px);
+}
+
+
+.welcome-about-button {
+  position: absolute;
+
+  bottom: 24px;
+
+  border: none;
+
+  background: transparent;
+
+  color:
+    rgba(255, 255, 255, 0.9);
+
+  font-size: 0.88rem;
+  font-weight: 700;
+
+  text-decoration: underline;
+
+  cursor: pointer;
+}
+
+/* =========================================================
+   À PROPOS
+========================================================= */
+
+.about-content {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 10px 20px 30px;
+}
+
+.about-tagline {
+  margin: 0 0 24px;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.about-text {
+  margin: 0 0 18px;
+  line-height: 1.7;
+  text-align: left;
+}
+
+.about-destination {
+  margin: 28px 0 34px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.about-copyright {
+  padding-top: 20px;
+  border-top: 1px solid rgba(128, 128, 128, 0.3);
+  text-align: center;
+  font-size: 0.85rem;
+  opacity: 0.75;
+}
+
+@media (max-width: 600px) {
+
+  .about-content {
+    padding: 8px 16px 24px;
+  }
+
+  .about-tagline {
+    font-size: 1.1rem;
+  }
+
+}
+
+
+/* =========================================================
+   06. MENU PRINCIPAL
+========================================================= */
+
+.home-view {
+  width: 100%;
+
+  padding: 10px 0 30px;
+}
+
+
+.home-header {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 25px;
+}
+
+
+.home-logo {
+  width: auto;
+  max-width: 220px;
+  height: auto;
+}
+
+
+.home-back-button {
+  position: static;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 7px 16px;
+
+  border:
+    1px solid #3AA6B9;
+
+  border-radius: 20px;
+
+  background: #e8f4f5;
+
+  color: #257b8c;
+
+  font-size: 0.86rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.home-back-button:hover {
+  background: #3AA6B9;
+
+  color: #fff;
+
+  transform: translateY(-1px);
+}
+
+.home-language-switcher {
+  position: static;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 8px;
+}
+
+
+.home-title {
+  margin-bottom: 28px;
+
+  text-align: center;
+
+  font-size: 1.55rem;
+}
+
+
+.home-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 26px;
+}
+
+
+.home-card {
+  position: relative;
+
+  width: 100%;
+  height: 280px;
+
+  display: block;
+
+  padding: 0;
+
+  overflow: hidden;
+
+  border: none;
+  border-radius: 18px;
+
+  background: #ddd;
+
+  cursor: pointer;
+
+  text-decoration: none;
+
+  box-shadow:
+    0 8px 24px
+    rgba(0, 0, 0, 0.14);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.home-card:hover {
+  transform:
+    translateY(-4px);
+
+  box-shadow:
+    0 12px 30px
+    rgba(0, 0, 0, 0.18);
+}
+
+
+.home-card-image {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+
+.home-card::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.64),
+      rgba(0, 0, 0, 0.02) 65%
+    );
+}
+
+
+.home-card-title {
+  position: absolute;
+
+  left: 24px;
+  right: 24px;
+  bottom: 20px;
+
+  color: #fff;
+
+  font-size: 1.4rem;
+  font-weight: 800;
+
+  text-align: left;
+
+  z-index: 2;
+}
+
+
+/* =========================================================
+   07. EN-TÊTE UNIVERSEL
+========================================================= */
+
+.universal-header {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 24px;
+
+  text-align: center;
+}
+
+
+.universal-logo {
+  display: block;
+
+  width: auto;
+  max-width: 220px;
+  height: auto;
+}
+
+
+.universal-language-switcher {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 8px;
+}
+
+
+.universal-back-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 7px 16px;
+
+  border:
+    1px solid #3AA6B9;
+
+  border-radius: 20px;
+
+  background: #e8f4f5;
+
+  color: #257b8c;
+
+  font-size: 0.86rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.universal-back-button:hover {
+  background: #3AA6B9;
+
+  color: #fff;
+
+  transform:
+    translateY(-1px);
+}
+
+
+/* =========================================================
+   08. GUIDE
+========================================================= */
+
+.guide-view {
+  width: 100%;
+}
+
+
+.guide-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 26px;
+
+  margin-top: 28px;
+}
+
+
+.guide-card {
+  position: relative;
+
+  width: 100%;
+  height: 260px;
+
+  padding: 0;
+
+  overflow: hidden;
+
+  border: none;
+  border-radius: 18px;
+
+  background: #ddd;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 24px
+    rgba(0, 0, 0, 0.12);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.guide-card:hover {
+  transform:
+    translateY(-4px);
+
+  box-shadow:
+    0 12px 30px
+    rgba(0, 0, 0, 0.16);
+}
+
+
+.guide-card-image {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.35s ease;
+}
+
+
+.guide-card:hover
+.guide-card-image {
+  transform:
+    scale(1.035);
+}
+
+
+.guide-card::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.02) 60%
+    );
+
+  pointer-events: none;
+}
+
+
+.guide-card-title {
+  position: absolute;
+
+  left: 24px;
+  right: 24px;
+  bottom: 20px;
+
+  color: #fff;
+
+  font-size: 1.4rem;
+  font-weight: 800;
+
+  text-align: left;
+
+  z-index: 2;
+}
+
+
+.guide-card:nth-child(5) {
+  grid-column:
+    1 / -1;
+
+  width:
+    calc(50% - 13px);
+
+  justify-self:
+    center;
+}
+
+
+/* =========================================================
+   09. CATÉGORIES
+========================================================= */
+
+.categories-view,
+.activities-view {
+  width: 100%;
+}
+
+
+.categories-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 26px;
+
+  margin-top: 28px;
+}
+
+
+.category-card {
+  position: relative;
+
+  width: 100%;
+  height: 260px;
+
+  padding: 0;
+
+  overflow: hidden;
+
+  border: none;
+  border-radius: 18px;
+
+  background: #ddd;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 24px
+    rgba(0, 0, 0, 0.12);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.category-card:hover {
+  transform:
+    translateY(-4px);
+
+  box-shadow:
+    0 12px 30px
+    rgba(0, 0, 0, 0.16);
+}
+
+
+.category-card-image {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.35s ease;
+}
+
+
+.category-card:hover
+.category-card-image {
+  transform:
+    scale(1.035);
+}
+
+
+.category-card::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.58),
+      rgba(0, 0, 0, 0.02) 60%
+    );
+
+  pointer-events: none;
+}
+
+
+.category-card-title {
+  position: absolute;
+
+  left: 24px;
+  right: 24px;
+  bottom: 20px;
+
+  color: #fff;
+
+  font-size: 1.4rem;
+  font-weight: 800;
+
+  text-align: left;
+
+  z-index: 2;
+}
+
+
+#categories-grid
+.category-card:nth-child(5) {
+  grid-column:
+    1 / -1;
+
+  width:
+    calc(50% - 13px);
+
+  justify-self:
+    center;
+}
+
+
+/* =========================================================
+   10. EN-TÊTE DE CATÉGORIE
+========================================================= */
+
+.category-header {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 28px;
+}
+
+
+/* =========================================================
+   11. MODULES GÉNÉRIQUES
+========================================================= */
+
+.module-view {
+  width: 100%;
+}
+
+
+.module-placeholder {
+  max-width: 760px;
+
+  margin:
+    28px auto 0;
+
+  padding:
+    32px 24px;
+
+  border-radius: 18px;
+
+  background: #fff;
+
+  color: #666;
+
+  text-align: center;
+
+  line-height: 1.5;
+
+  box-shadow:
+    0 8px 24px
+    rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================================
+   12. CARROUSEL
+========================================================= */
+
+.category-view {
+  width: 100%;
+}
+
+
+.cards-navigation {
+  position: relative;
+
+  width: 100%;
+}
+
+
+.cards-grid {
+  width: 100%;
+
+  display: flex;
+
+  gap: 30px;
+
+  overflow: hidden;
+
+  scroll-behavior: smooth;
+}
+
+
+.place-card {
+  flex:
+    0 0 calc((100% - 60px) / 3);
+
+  width: 100%;
+  height: 600px;
+
+  perspective: 1200px;
+
+  cursor: pointer;
+}
+
+
+.place-card-inner {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  transform-style: preserve-3d;
+
+  transition:
+    transform 0.65s ease;
+}
+
+
+.place-card.is-flipped
+.place-card-inner {
+  transform:
+    rotateY(180deg);
+}
+
+
+.place-card-front,
+.place-card-back {
+  position: absolute;
+
+  inset: 0;
+
+  overflow: hidden;
+
+  border-radius: 20px;
+
+  background: #fff;
+
+  box-shadow:
+    0 10px 30px
+    rgba(0, 0, 0, 0.12);
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+
+.place-card-back {
+  transform:
+    rotateY(180deg);
+}
+
+
+/* =========================================================
+   13. IMAGE / CRÉDIT
+========================================================= */
+
+.card-image-wrapper {
+  position: relative;
+
+  width: 100%;
+  height: 50%;
+
+  overflow: hidden;
+
+  background: #ddd;
+}
+
+
+.card-image {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+
+.photo-info-button {
+  position: absolute;
+
+  top: 12px;
+  left: 12px;
+
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.92);
+
+  color: #333;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  z-index: 5;
+}
+
+
+.photo-credit {
+  position: absolute;
+
+  top: 52px;
+  left: 12px;
+
+  width:
+    calc(100% - 24px);
+
+  display: none;
+
+  padding: 12px 14px;
+
+  border-radius: 10px;
+
+  background:
+    rgba(255, 255, 255, 0.97);
+
+  font-size: 0.78rem;
+  line-height: 1.45;
+
+  box-shadow:
+    0 4px 15px
+    rgba(0, 0, 0, 0.18);
+
+  z-index: 6;
+}
+
+
+.photo-credit.is-visible {
+  display: block;
+}
+
+
+.photo-credit a {
+  display: inline-block;
+
+  margin-top: 5px;
+
+  color: #257b8c;
+
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+
+/* =========================================================
+   14. TITRE / INFOS
+========================================================= */
+
+.card-title-area {
+  min-height: 76px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 12px 20px;
+
+  border-bottom:
+    1px solid #ececec;
+}
+
+
+.card-title {
+  text-align: center;
+
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+
+.card-bottom {
+  height:
+    calc(50% - 76px);
+
+  display: grid;
+
+  grid-template-columns:
+    1fr 110px;
+}
+
+
+.practical-info {
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  gap: 14px;
+}
+
+
+.info-row {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 10px;
+
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+
+.info-icon {
+  width: 22px;
+
+  flex:
+    0 0 22px;
+
+  text-align: center;
+}
+
+
+.card-info-link {
+  color: #257b8c;
+
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+
+.card-info-link:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   15. PROGRAMME
+========================================================= */
+
+.programme-card
+.practical-info {
+  padding:
+    14px 18px;
+
+  gap: 9px;
+}
+
+
+.programme-card
+.info-row {
+  font-size:
+    0.86rem;
+
+  line-height:
+    1.3;
+}
+
+
+/* =========================================================
+   16. ÉDITORIAL
+========================================================= */
+
+.editorial-favorite {
+  position: absolute;
+
+  top: 10px;
+  right: 12px;
+
+  z-index: 5;
+}
+
+
+.editorial-favorite
+.favorite-button {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.92);
+
+  font-size: 30px;
+
+  box-shadow:
+    0 3px 10px
+    rgba(0, 0, 0, 0.14);
+}
+
+
+.editorial-front-description {
+  height:
+    calc(50% - 76px);
+
+  display: flex;
+  align-items: center;
+
+  padding:
+    24px 28px;
+
+  background: #fff;
+}
+
+
+.editorial-front-description p {
+  color: #444;
+
+  font-size: 0.94rem;
+  line-height: 1.6;
+
+  text-align: left;
+}
+
+
+.editorial-card-back {
+  padding:
+    26px 26px 30px;
+}
+
+
+.editorial-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+
+.district-see-title {
+  margin-bottom: 16px;
+
+  color: #257b8c;
+
+  font-size: 0.95rem;
+  font-weight: 800;
+
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+
+.district-item
+.editorial-item-note {
+  margin-bottom: 7px;
+}
+
+
+.transport-editorial-item
+.transport-item-connection,
+.transport-editorial-item
+.transport-item-price {
+  line-height: 1.6;
+}
+
+
+.district-item
+.editorial-item-transport {
+  margin-top: 7px;
+
+  color: #555;
+
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   17. TRANSPORT — MÉTRO
+========================================================= */
+
+.metro-network-back {
+  padding:
+    22px 18px 24px;
+
+  overflow: hidden;
+}
+
+
+.metro-network-scroll {
+  height:
+    calc(100% - 54px);
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding-right: 5px;
+
+  scrollbar-width: thin;
+
+  overscroll-behavior:
+    contain;
+}
+
+
+.metro-network-top,
+.metro-network-bottom {
+  display: grid;
+
+  grid-template-columns:
+    60% 40%;
+
+  align-items: center;
+
+  min-height: 38px;
+}
+
+
+.metro-network-label {
+  padding-left: 10px;
+
+  color: #555;
+
+  font-size: 0.78rem;
+  font-weight: 700;
+
+  text-transform: uppercase;
+}
+
+
+.metro-line-badges {
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, 1fr);
+
+  align-items: center;
+
+  justify-items: center;
+}
+
+
+.metro-line-badge {
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    var(--metro-line-color);
+
+  color: #fff;
+
+  border-radius: 4px;
+
+  font-size: 0.72rem;
+  font-weight: 800;
+
+  box-shadow:
+    0 2px 5px
+    rgba(0, 0, 0, 0.14);
+}
+
+
+.metro-station-block {
+  display: grid;
+
+  grid-template-columns:
+    60% 40%;
+
+  align-items: stretch;
+
+  min-height: 64px;
+}
+
+
+.metro-station-left {
+  min-width: 0;
+
+  padding:
+    6px 10px 6px 0;
+}
+
+
+.metro-station-button {
+  width: 100%;
+
+  min-height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 8px;
+
+  padding:
+    8px 10px;
+
+  border: none;
+  border-bottom:
+    1px solid #ececec;
+
+  background: transparent;
+
+  color: #222;
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+
+.metro-station-name {
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+
+.metro-station-chevron {
+  flex-shrink: 0;
+
+  color: #3AA6B9;
+
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+
+.metro-station-lines {
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, 1fr);
+
+  min-height: 100%;
+}
+
+
+.metro-track {
+  position: relative;
+
+  min-height: 100%;
+}
+
+
+.metro-track::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+  left: 50%;
+
+  width: 4px;
+
+  background:
+    var(--metro-line-color);
+
+  transform:
+    translateX(-50%);
+}
+
+
+.metro-station-marker {
+  position: absolute;
+
+  top: 32px;
+  left: 50%;
+
+  width: 13px;
+  height: 13px;
+
+  background: #173653;
+
+  border:
+    2px solid #b94747;
+
+  transform:
+    translate(-50%, -50%)
+    rotate(45deg);
+
+  z-index: 3;
+
+  box-sizing:
+    border-box;
+}
+
+
+.metro-station-accordion {
+  max-height: 0;
+
+  overflow: hidden;
+
+  opacity: 0;
+
+  transition:
+    max-height 0.35s ease,
+    opacity 0.25s ease;
+}
+
+
+.metro-station-block.is-open
+.metro-station-accordion {
+  opacity: 1;
+}
+
+
+.metro-station-places {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap:
+    14px 8px;
+
+  padding:
+    14px 3px 18px;
+}
+
+
+.metro-station-place {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 6px;
+
+  text-align: center;
+}
+
+
+.metro-station-place-image {
+  width: 46px;
+  height: 46px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  box-shadow:
+    0 2px 7px
+    rgba(0, 0, 0, 0.16);
+}
+
+
+.metro-station-place-name {
+  width: 100%;
+
+  color: #444;
+
+  font-size: 0.68rem;
+  line-height: 1.2;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   18. FAVORIS
+========================================================= */
+
+.favorites-empty {
+  width: 100%;
+
+  padding: 60px 24px;
+
+  border-radius: 18px;
+
+  background: #fff;
+
+  color: #666;
+
+  text-align: center;
+
+  font-size: 1rem;
+  line-height: 1.5;
+
+  box-shadow:
+    0 8px 24px
+    rgba(0, 0, 0, 0.08);
+}
+
+
+.clear-favorites-button {
+  display: block;
+
+  margin:
+    0 auto 22px;
+
+  padding:
+    8px 16px;
+
+  border:
+    1px solid #3AA6B9;
+
+  border-radius: 20px;
+
+  background: transparent;
+
+  color: #3AA6B9;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+
+.clear-favorites-button:hover {
+  background: #3AA6B9;
+
+  color: #fff;
+}
+
+
+.favorite-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 8px;
+
+  border-left:
+    1px solid #ececec;
+}
+
+
+.favorite-button {
+  width: 52px;
+  height: 52px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #777;
+
+  font-size: 36px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+
+.favorite-button:hover {
+  transform:
+    scale(1.08);
+}
+
+
+.favorite-button.is-favorite {
+  color: #c94747;
+}
+
+
+.favorite-label {
+  color: #666;
+
+  font-size: 0.75rem;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   19. ÉLÉMENTS ÉDITORIAUX
+========================================================= */
+
+.editorial-item {
+  padding-bottom: 18px;
+
+  border-bottom:
+    1px solid #e7e7e7;
+}
+
+
+.editorial-item:last-child {
+  padding-bottom: 4px;
+
+  border-bottom: none;
+}
+
+
+.editorial-item-title {
+  margin-bottom: 7px;
+
+  color: #222;
+
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+
+.editorial-item-address,
+.editorial-item-transport {
+  margin-bottom: 5px;
+
+  color: #555;
+
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+
+.editorial-item-note {
+  margin-top: 7px;
+
+  color: #444;
+
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+
+.editorial-item-link {
+  display: inline-block;
+
+  margin-top: 8px;
+
+  color: #257b8c;
+
+  font-size: 0.82rem;
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+
+.editorial-item-link:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   20. FACE ARRIÈRE
+========================================================= */
+
+.place-card-back {
+  padding:
+    30px 28px;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  overscroll-behavior:
+    contain;
+
+  scrollbar-width: thin;
+}
+
+
+.place-card-back::-webkit-scrollbar {
+  width: 6px;
+}
+
+
+.place-card-back::-webkit-scrollbar-thumb {
+  background:
+    rgba(0, 0, 0, 0.22);
+
+  border-radius: 10px;
+}
+
+
+.place-card-back::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+.back-title {
+  margin-bottom: 20px;
+
+  text-align: center;
+
+  font-size: 1.4rem;
+}
+
+
+.back-description {
+  margin-bottom: 20px;
+
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+
+.back-section {
+  margin-bottom: 20px;
+}
+
+
+.back-section h3 {
+  margin-bottom: 9px;
+
+  font-size: 1rem;
+}
+
+
+.back-section ul {
+  padding-left: 20px;
+}
+
+
+.back-section li {
+  margin-bottom: 5px;
+
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+
+.traveloptim-tip {
+  margin-bottom: 4px;
+
+  padding: 14px;
+
+  border-radius: 12px;
+
+  background: #e8f4f5;
+
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+
+.traveloptim-tip strong {
+  display: block;
+
+  margin-bottom: 5px;
+}
+
+
+/* =========================================================
+   21. COMMANDES DU CARROUSEL
+========================================================= */
+
+.carousel-arrow {
+  position: absolute;
+
+  top: 50%;
+
+  width: 46px;
+  height: 46px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.95);
+
+  color: #257b8c;
+
+  font-size: 34px;
+  line-height: 1;
+
+  box-shadow:
+    0 4px 16px
+    rgba(0, 0, 0, 0.15);
+
+  cursor: pointer;
+
+  transform:
+    translateY(-50%);
+
+  z-index: 50;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+
+.carousel-arrow:hover {
+  transform:
+    translateY(-50%)
+    scale(1.08);
+}
+
+
+.carousel-arrow-left {
+  left: 10px;
+}
+
+
+.carousel-arrow-right {
+  right: 10px;
+}
+
+
+.carousel-arrow:disabled {
+  opacity: 0.25;
+
+  cursor: default;
+
+  pointer-events: none;
+}
+
+
+.neighbor-previews {
+  display: none;
+}
+
+
+.neighbor-preview {
+  width: 74px;
+  height: 48px;
+
+  padding: 0;
+
+  overflow: hidden;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #ddd;
+
+  opacity: 0.48;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 3px 10px
+    rgba(0, 0, 0, 0.12);
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.neighbor-preview:hover {
+  opacity: 0.8;
+
+  transform:
+    scale(1.04);
+}
+
+
+.neighbor-preview img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+
+.neighbor-preview.is-hidden {
+  visibility: hidden;
+
+  pointer-events: none;
+}
+
+
+.carousel-counter {
+  display: none;
+
+  margin-top: 10px;
+
+  color: #777;
+
+  text-align: center;
+
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+
+.flip-hint {
+  margin-top: 16px;
+
+  color: #777;
+
+  text-align: center;
+
+  font-size: 0.8rem;
+}
+
+/* =========================================================
+   22. ITINÉRAIRES
+========================================================= */
+
+
+/* =========================================================
+   22.1 DOS DE LA CARTE
+========================================================= */
+
+.route-card-back {
+  padding: 22px 20px;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   22.2 ZONE DE DÉFILEMENT VERTICAL
+========================================================= */
+
+.route-scroll {
+  flex: 1;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding: 8px 4px;
+
+  scrollbar-width: thin;
+}
+
+
+/* =========================================================
+   22.3 STATIONS DE DÉPART ET D'ARRIVÉE
+========================================================= */
+
+.route-metro {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  padding: 9px 12px;
+
+  border-radius: 14px;
+
+  background: #e8f4f5;
+
+  color: #257b8c;
+
+  font-size: 0.82rem;
+  font-weight: 800;
+
+  text-align: center;
+}
+
+
+.route-metro-label {
+  font-weight: 800;
+}
+
+
+.route-metro-station {
+  font-weight: 700;
+}
+
+
+.route-metro-lines {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 4px;
+}
+
+
+/* =========================================================
+   22.4 BADGES DES LIGNES DE MÉTRO
+========================================================= */
+
+.route-metro-line {
+  min-width: 24px;
+  height: 24px;
+
+  display: inline-flex;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: 0 5px;
+
+  border-radius: 5px;
+
+  color: #fff;
+
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+
+/* Ligne 1 */
+
+.route-metro-line-1 {
+  background: #2A75BB;
+}
+
+
+/* Ligne 2 */
+
+.route-metro-line-2 {
+  background: #E1261C;
+}
+
+
+/* Ligne 3 */
+
+.route-metro-line-3 {
+  background: #FFD100;
+
+  color: #222;
+}
+
+
+/* Ligne 4 */
+
+.route-metro-line-4 {
+  background: #8B4513;
+}
+
+
+/* Ligne 5 */
+
+.route-metro-line-5 {
+  background: #96BF0D;
+}
+
+
+/* Ligne 6 */
+
+.route-metro-line-6 {
+  background: #999999;
+}
+
+/* L7 — Orange */
+.route-metro-line-7 {
+  background: #F28C00;
+}
+
+
+/* Ligne 8 */
+
+.route-metro-line-8 {
+  background: #E88BB5;
+}
+
+
+/* LIGNE 10 */
+
+.route-metro-line-10 {
+  background: #005A9C;
+}
+
+.route-metro-line-R {
+  background: #111111;
+}
+
+
+/* =========================================================
+   22.5 ÉTAPES DU PARCOURS
+
+   Gauche  : lieu + tracé
+   Droite  : commentaire
+========================================================= */
+
+.route-step {
+  width: 100%;
+}
+
+
+.route-step-content {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    46% 54%;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.route-place {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+
+.route-comment {
+  align-self: center;
+
+  padding: 10px 8px;
+
+  color: #444;
+
+  font-size: 0.82rem;
+
+  line-height: 1.45;
+
+  text-align: left;
+}
+
+
+.route-connector-area {
+  width: 46%;
+
+  display: flex;
+
+  justify-content: center;
+}
+
+
+/* =========================================================
+   22.6 MINIATURES DES LIEUX
+========================================================= */
+
+/* Lieu normal */
+
+.route-place-image {
+  width: 54px;
+  height: 54px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  box-shadow:
+    0 3px 10px
+    rgba(0, 0, 0, 0.18);
+}
+
+
+/* Lieu incontournable */
+
+.route-place-image.is-must-see {
+  width: 72px;
+  height: 72px;
+
+  border:
+    3px solid
+    #3AA6B9;
+}
+
+
+/* =========================================================
+   22.7 NOM DU LIEU
+========================================================= */
+
+.route-place-name {
+  margin-top: 7px;
+
+  max-width: 120px;
+
+  font-size: 0.76rem;
+  font-weight: 800;
+
+  line-height: 1.2;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   22.8 COMMENTAIRE
+========================================================= */
+
+.route-comment {
+  padding: 10px 8px;
+
+  color: #444;
+
+  font-size: 0.82rem;
+
+  line-height: 1.45;
+
+  text-align: left;
+}
+
+
+/* =========================================================
+   22.9 BASE DES LIAISONS
+========================================================= */
+
+.route-connector {
+  position: relative;
+
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   22.10 LIAISON À PIED
+========================================================= */
+
+.route-connector-walk {
+  width: 2px;
+  height: 38px;
+
+  margin:
+    16px auto
+    16px;
+
+  background: #999;
+}
+
+
+.route-connector-walk::after {
+  content: "▼";
+
+  position: absolute;
+
+  left: 50%;
+  bottom: -7px;
+
+  transform:
+    translateX(-50%);
+
+  color: #777;
+
+  font-size: 0.65rem;
+}
+
+
+/* =========================================================
+   22.11 TRAJET EN MÉTRO
+========================================================= */
+
+.route-metro-transfer {
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  margin:
+    16px 0
+    18px;
+}
+
+
+/* =========================================================
+   22.12 STATIONS INTERMÉDIAIRES
+========================================================= */
+
+.route-intermediate-station {
+  width: fit-content;
+
+  max-width: 145px;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 5px;
+
+  padding:
+    6px 9px;
+
+  border-radius: 11px;
+
+  background: #e8f4f5;
+
+  color: #257b8c;
+
+  font-size: 0.68rem;
+  font-weight: 700;
+
+  text-align: center;
+
+  box-sizing: border-box;
+}
+
+
+.route-intermediate-station-name {
+  line-height: 1.2;
+}
+
+
+/* =========================================================
+   22.13 LIGNE ENTRE LES STATIONS MÉTRO
+========================================================= */
+
+.route-connector-metro {
+  width: 5px;
+  height: 52px;
+
+  margin:
+    14px auto
+    14px;
+
+  background: #257b8c;
+}
+
+
+.route-connector-metro::after {
+  content: "▼";
+
+  position: absolute;
+
+  left: 50%;
+  bottom: -8px;
+
+  transform:
+    translateX(-50%);
+
+  color: inherit;
+
+  font-size: 0.65rem;
+}
+
+
+/* Badge indiquant la ligne */
+
+.route-connector-metro-badge {
+  position: absolute;
+
+  top: 50%;
+  left: 14px;
+
+  transform:
+    translateY(-50%);
+
+  min-width: 28px;
+
+  padding:
+    3px 5px;
+
+  border-radius: 5px;
+
+  background: inherit;
+
+  color: #fff;
+
+  font-size: 0.64rem;
+  font-weight: 800;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   22.14 COULEURS DES TRAJETS MÉTRO
+========================================================= */
+
+.route-connector-metro-1 {
+  background: #2A75BB;
+  color: #2A75BB;
+}
+
+
+.route-connector-metro-2 {
+  background: #E1261C;
+  color: #E1261C;
+}
+
+
+.route-connector-metro-3 {
+  background: #FFD100;
+  color: #FFD100;
+}
+
+
+/* L4 — Marron */
+.route-connector-metro-4 {
+  background: #8B4513;
+  color: #8B4513;
+}
+
+
+.route-connector-metro-5 {
+  background: #96BF0D;
+  color: #96BF0D;
+}
+
+
+.route-connector-metro-6 {
+  background: #999999;
+  color: #999999;
+}
+
+/* L7 — Orange */
+.route-connector-metro-7 {
+  background: #F28C00;
+  color: #F28C00;
+}
+
+.route-connector-metro-8 {
+  background: #E88BB5;
+  color: #E88BB5;
+}
+
+
+.route-connector-metro-10 {
+  background: #005A9C;
+  color: #005A9C;
+}
+
+.route-connector-metro-R {
+  background: #111111;
+  color: #111111;
+}
+
+/* =========================================================
+   23. CARTE INTERACTIVE
+========================================================= */
+
+
+/* =========================================================
+   23.1 CONTENEUR
+========================================================= */
+
+.traveloptim-map {
+  width: 100%;
+  height: 650px;
+
+  margin-top: 28px;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  background: #ddd;
+
+  box-shadow:
+    0 10px 30px
+    rgba(0, 0, 0, 0.12);
+}
+
+/* =========================================================
+   23.2 STATIONS DE MÉTRO
+========================================================= */
+
+.metro-station-icon {
+  background: transparent;
+  border: none;
+}
+
+
+/* Petit point — vue générale */
+
+.metro-station-dot {
+  display: block;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #A84432;
+
+  border: 1px solid #ffffff;
+
+  box-shadow:
+    0 1px 3px
+    rgba(0, 0, 0, 0.35);
+}
+
+
+/* Losange — vue rapprochée */
+
+.metro-station-diamond {
+  display: block;
+
+  width: 12px;
+  height: 12px;
+
+  background: #183f67;
+
+  border: 2px solid #e1261c;
+
+  transform:
+    rotate(45deg);
+
+  box-shadow:
+    0 1px 4px
+    rgba(0, 0, 0, 0.35);
+}
+
+.map-wrapper {
+  position: relative;
+}
+
+
+/* =========================================================
+   23.3 CONTRÔLES DE LA CARTE
+========================================================= */
+
+.map-controls {
+  position: absolute;
+
+  top: 14px;
+  left: 64px;
+
+  z-index: 900;
+
+  width: 190px;
+}
+
+
+/* Bouton accordéon */
+
+.map-accordion-button {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 11px 14px;
+
+  border: 1px solid
+    rgba(0, 0, 0, 0.12);
+
+  border-radius: 10px;
+
+  background:
+    rgba(255, 255, 255, 0.96);
+
+  color: #222;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 2px 8px
+    rgba(0, 0, 0, 0.16);
+}
+
+
+.map-accordion-arrow {
+  transition:
+    transform 0.25s ease;
+}
+
+
+.map-accordion-button.is-open
+.map-accordion-arrow {
+  transform:
+    rotate(180deg);
+}
+
+
+/* Panneau */
+
+.map-accordion-panel {
+  margin-top: 6px;
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  background:
+    rgba(255, 255, 255, 0.97);
+
+  border: 1px solid
+    rgba(0, 0, 0, 0.10);
+
+  box-shadow:
+    0 4px 14px
+    rgba(0, 0, 0, 0.14);
+}
+
+
+/* Options */
+
+.map-control-option {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  padding:
+    6px 4px;
+
+  font-size: 14px;
+
+  cursor: pointer;
+}
+
+
+.map-control-option input {
+  width: 16px;
+  height: 16px;
+
+  accent-color:
+    #3AA6B9;
+}
+
+
+/* Grille des lignes */
+
+.metro-lines-control {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      1fr
+    );
+
+  gap: 2px 8px;
+
+  margin-top: 8px;
+
+  padding-top: 8px;
+
+  border-top:
+    1px solid
+    rgba(0, 0, 0, 0.10);
+}
+
+/* =========================================================
+   23.4 CARTE — MARQUEURS DES LIEUX
+========================================================= */
+
+.traveloptim-place-icon-wrapper {
+  background: transparent;
+  border: none;
+}
+
+
+.traveloptim-place-marker {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  border: 2px solid #ffffff;
+
+  box-shadow:
+    0 2px 6px rgba(
+      0,
+      0,
+      0,
+      0.28
+    );
+}
+
+
+.traveloptim-place-marker span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  font-size: 17px;
+  line-height: 1;
+
+  user-select: none;
+}
+
+/* =========================================================
+   23.5 CARTE — MARQUEURS INCONTOURNABLES
+========================================================= */
+
+.traveloptim-mustsee-icon-wrapper {
+  background: transparent;
+  border: none;
+}
+
+
+.traveloptim-mustsee-marker {
+  position: relative;
+
+  width: 52px;
+  height: 62px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+
+/* ÉTOILE */
+
+.traveloptim-mustsee-star {
+  position: absolute;
+
+  top: -2px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  font-size: 18px;
+  line-height: 1;
+
+  z-index: 2;
+
+  filter:
+    drop-shadow(
+      0 1px 2px
+      rgba(0, 0, 0, 0.35)
+    );
+}
+
+
+/* CERCLE DE LA MINIATURE */
+
+.traveloptim-mustsee-image-wrapper {
+  width: 48px;
+  height: 48px;
+
+  border-radius: 50%;
+
+  overflow: hidden;
+
+  border: 3px solid #ffffff;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 3px 8px
+    rgba(
+      0,
+      0,
+      0,
+      0.32
+    );
+}
+
+
+/* IMAGE */
+
+.traveloptim-mustsee-image {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+/* =========================================================
+   23.6 CARTE — POPUP LIEU
+========================================================= */
+
+.traveloptim-map-popup
+.leaflet-popup-content-wrapper {
+  border-radius: 14px;
+
+  padding: 0;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 5px 18px
+    rgba(0, 0, 0, 0.22);
+}
+
+
+.traveloptim-map-popup
+.leaflet-popup-content {
+  margin: 0;
+
+  width: 220px !important;
+}
+
+
+.traveloptim-map-place-card {
+  width: 220px;
+
+  background: #ffffff;
+
+  overflow: hidden;
+
+  border-radius: 14px;
+}
+
+
+/* IMAGE */
+
+.traveloptim-map-place-image-wrapper {
+  width: 100%;
+  height: 125px;
+
+  overflow: hidden;
+
+  background: #eeeeee;
+}
+
+
+.traveloptim-map-place-image {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+
+/* CONTENU */
+
+.traveloptim-map-place-content {
+  padding:
+    13px 14px 14px;
+}
+
+
+.traveloptim-map-place-name {
+  margin-bottom: 12px;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  line-height: 1.3;
+
+  color: #243333;
+}
+
+
+/* =========================================================
+   23.7 CARTE — POPUP STATION MÉTRO
+========================================================= */
+
+.traveloptim-map-station-card {
+  width: 220px;
+
+  padding: 15px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border-radius: 14px;
+}
+
+
+.traveloptim-map-station-name {
+  margin-bottom: 5px;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  line-height: 1.25;
+
+  color: #243333;
+}
+
+
+.traveloptim-map-station-lines {
+  margin-bottom: 14px;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  line-height: 1.35;
+
+  color: #657272;
+}
+
+/* =========================================================
+   23.8 CARTE — GROUPES DE FILTRES
+========================================================= */
+
+.map-filter-section {
+  position: relative;
+}
+
+
+.map-filter-button {
+  min-width: 105px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  padding: 9px 14px;
+
+  border: 1px solid rgba(58, 166, 137, 0.35);
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.96);
+
+  color: #243333;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+
+.map-filter-button:hover {
+  background: #eef9f6;
+}
+
+
+.map-filter-button.is-open {
+  border-color: #3AA689;
+}
+
+
+.map-filter-chevron {
+  transition:
+    transform 0.2s ease;
+}
+
+
+.map-filter-button.is-open
+.map-filter-chevron {
+  transform:
+    rotate(180deg);
+}
+
+
+.map-filter-panel {
+  position: absolute;
+
+  top: calc(100% + 6px);
+  left: 0;
+
+  z-index: 1000;
+
+  min-width: 205px;
+  max-height: 340px;
+
+  padding: 10px;
+
+  overflow-y: auto;
+
+  background: rgba(255, 255, 255, 0.98);
+
+  border: 1px solid rgba(58, 166, 137, 0.25);
+  border-radius: 12px;
+
+  box-shadow:
+    0 5px 18px rgba(0, 0, 0, 0.18);
+}
+
+
+.map-filter-option {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 6px 5px;
+
+  font-size: 13px;
+
+  cursor: pointer;
+}
+
+
+.map-filter-option input {
+  accent-color: #3AA689;
+}
+
+/* =========================================================
+   23.8.1 CARTE — CASES À COCHER DES FILTRES
+========================================================= */
+
+.map-control-option {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+}
+
+
+.map-control-option input[type="checkbox"] {
+
+  width: 14px;
+
+  height: 14px;
+
+  min-width: 14px;
+
+  min-height: 14px;
+
+  flex:
+    0 0 14px;
+
+  margin:
+    0;
+
+}
+
+
+.map-filter-icon {
+
+  width: 20px;
+
+  min-width: 20px;
+
+  text-align: center;
+
+  line-height: 1;
+
+}
+
+/* =========================================================
+   23.9 CARTE — MENU PRINCIPAL
+========================================================= */
+
+.map-wrapper {
+  position: relative;
+}
+
+
+/*
+ * Bloc du menu placé AU-DESSUS de la carte.
+ */
+
+ .map-menu {
+
+  position: absolute;
+
+  top: 12px;
+  left: 12px;
+
+  z-index: 1200;
+
+  width: 220px;
+
+  max-height:
+    calc(100% - 24px);
+
+  display: flex;
+
+  flex-direction: column;
+
+}
+
+
+/*
+ * Bouton principal ☰ Menu
+ */
+
+.map-menu-button {
+
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-start;
+
+  gap: 8px;
+
+  padding: 10px 12px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.18);
+
+  font: inherit;
+
+  cursor: pointer;
+
+}
+
+
+.map-menu-icon {
+
+  font-size: 20px;
+
+  line-height: 1;
+
+}
+
+
+/*
+ * Contenu déroulant du menu.
+ */
+
+ .map-menu-panel {
+
+  margin-top: 6px;
+
+  padding: 6px;
+
+  border-radius: 10px;
+
+  background:
+    rgba(255, 255, 255, 0.96);
+
+  box-shadow:
+    0 2px 10px
+    rgba(0, 0, 0, 0.18);
+
+  flex:
+    1 1 auto;
+
+  min-height:
+    0;
+
+  overflow-y:
+    auto;
+
+  overflow-x:
+    hidden;
+
+  -webkit-overflow-scrolling:
+    touch;
+
+  overscroll-behavior:
+    contain;
+
+}
+
+.map-menu-section + .map-menu-section {
+
+  margin-top: 6px;
+
+}
+
+
+/*
+ * Mobile.
+ */
+
+ @media (max-width: 700px) {
+
+  .map-menu {
+
+    top: 10px;
+    left: 10px;
+
+    width:
+      min(210px, calc(100% - 20px));
+
+    max-height:
+      calc(100% - 20px);
+
+  }
+
+}
+
+/* =========================================================
+   23.10 CARTE — MODE PLEIN ÉCRAN
+========================================================= */
+
+.map-wrapper:fullscreen {
+
+  width: 100%;
+  height: 100%;
+
+  background: #ffffff;
+
+}
+
+
+.map-wrapper:fullscreen
+.traveloptim-map {
+
+  width: 100%;
+  height: 100%;
+
+}
+
+
+/*
+ * Compatibilité Safari / anciens WebKit.
+ */
+
+.map-wrapper:-webkit-full-screen {
+
+  width: 100%;
+  height: 100%;
+
+  background: #ffffff;
+
+}
+
+
+.map-wrapper:-webkit-full-screen
+.traveloptim-map {
+
+  width: 100%;
+  height: 100%;
+
+}
+
+/* =========================================================
+   23.11 CARTE — RECHERCHE ET GÉOLOCALISATION
+========================================================= */
+
+.map-search-section {
+
+  padding: 8px;
+
+  border-bottom:
+    1px solid rgba(0, 0, 0, 0.08);
+
+}
+
+
+.map-search-box {
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+
+}
+
+
+.map-search-label {
+
+  font-size: 0.9rem;
+
+  font-weight: 600;
+
+}
+
+
+.map-search-input {
+
+  width: 100%;
+
+  padding: 9px 10px;
+
+  border:
+    1px solid #d0d0d0;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  font: inherit;
+
+  box-sizing: border-box;
+
+}
+
+
+.map-search-input:focus {
+
+  outline: none;
+
+  border-color: #3AA689;
+
+}
+
+
+/* Résultats */
+
+.map-search-results,
+.map-nearby-results {
+
+  margin-top: 6px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+
+}
+
+
+.map-search-result-button,
+.map-nearby-result-button {
+
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 10px;
+
+  padding: 8px 9px;
+
+  border: none;
+
+  border-radius: 7px;
+
+  background: rgba(0, 0, 0, 0.045);
+
+  font: inherit;
+
+  text-align: left;
+
+  cursor: pointer;
+
+}
+
+
+.map-search-result-button:hover,
+.map-nearby-result-button:hover {
+
+  background:
+    rgba(58, 166, 137, 0.12);
+
+}
+
+
+.map-nearby-distance {
+
+  flex-shrink: 0;
+
+  font-size: 0.8rem;
+
+  opacity: 0.7;
+
+}
+
+
+/* Bouton géolocalisation */
+
+.map-location-button {
+
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 7px;
+
+  margin-top: 10px;
+
+  padding: 9px;
+
+  border:
+    1px solid #3AA689;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  font: inherit;
+
+  cursor: pointer;
+
+}
+
+
+.map-nearby-section {
+
+  margin-top: 10px;
+
+}
+
+
+.map-nearby-title {
+
+  margin-bottom: 5px;
+
+  font-size: 0.9rem;
+
+  font-weight: 600;
+
+}
+
+/* =========================================================
+   23.12 CARTE — LISTE DES LIEUX À PROXIMITÉ
+========================================================= */
+
+.map-nearby-header {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 8px;
+
+  margin-bottom: 5px;
+
+}
+
+
+.map-nearby-title {
+
+  margin-bottom: 0;
+
+  font-size: 0.9rem;
+
+  font-weight: 600;
+
+}
+
+
+.map-nearby-close {
+
+  flex:
+    0 0 auto;
+
+  width: 26px;
+  height: 26px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background:
+    rgba(0, 0, 0, 0.06);
+
+  font-size: 14px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+}
+
+
+.map-nearby-close:hover {
+
+  background:
+    rgba(0, 0, 0, 0.12);
+
+}
+
+/* =========================================================
+   23.13 CARTE — MES FAVORIS
+========================================================= */
+
+.map-favorite-row {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+
+  padding: 7px 6px;
+
+  border-radius: 7px;
+
+  background:
+    rgba(0, 0, 0, 0.035);
+}
+
+
+.map-favorite-name {
+  min-width: 0;
+
+  font-size: 0.85rem;
+  line-height: 1.35;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================================================
+   23.14 CARTE — BOUTON SUPPRIMER UN RÉSULTAT EXTERNE
+========================================================= */
+
+.map-popup-content {
+  position: relative;
+}
+
+
+.map-external-remove-button {
+  position: absolute;
+
+  top: 6px;
+  right: 6px;
+
+  width: 26px;
+  height: 26px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border:
+    1px solid rgba(0, 0, 0, 0.12);
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.95);
+
+  color:
+    #666666;
+
+  font-family: inherit;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+
+@media (hover: hover) {
+
+  .map-external-remove-button:hover {
+    background:
+      #fff1f1;
+
+    color:
+      #c62828;
+
+    border-color:
+      rgba(198, 40, 40, 0.25);
+
+    transform:
+      scale(1.06);
+  }
+
+}
+
+
+.map-external-remove-button:active {
+  transform:
+    scale(0.94);
+}
+
+
+/*
+ * Laisser suffisamment d'espace
+ * au titre pour éviter le chevauchement
+ * avec le bouton X.
+ */
+
+.map-popup-title {
+  padding-right:
+    34px;
+}
+
+
+/* =========================================================
+   23.15 CARTE — AJUSTEMENTS MOBILE DES FILTRES
+========================================================= */
+
+@media (max-width: 720px) {
+
+  .map-filter-section {
+    width: 100%;
+  }
+
+
+  .map-filter-button {
+    width: 100%;
+
+    min-width: 0;
+  }
+
+
+  .map-filter-panel {
+    top: 0;
+    left: calc(100% + 6px);
+
+    min-width: 195px;
+  }
+
+}
+
+/* =========================================================
+   24. RESPONSIVE — TABLETTE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  body {
+    padding:
+      32px 20px;
+  }
+
+
+  .guide-grid,
+  .categories-grid {
+    gap: 20px;
+  }
+
+
+  .guide-card,
+  .category-card {
+    height: 220px;
+  }
+
+
+  .guide-card-title,
+  .category-card-title {
+    font-size: 1.25rem;
+  }
+
+
+  .cards-grid {
+    display: flex;
+
+    gap: 20px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scroll-snap-type:
+      x mandatory;
+
+    scrollbar-width: none;
+  }
+
+
+  .cards-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+
+  .place-card {
+    flex:
+      0 0 calc((100% - 20px) / 2);
+
+    scroll-snap-align:
+      start;
+  }
+
+
+  .carousel-arrow {
+    display: none;
+  }
+
+
+  .neighbor-previews {
+    width: 100%;
+    max-width: 420px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin:
+      8px auto 0;
+
+    padding:
+      0 16px;
+  }
+
+}
+
+.traveloptim-map {
+  height: 600px;
+}
+
+
+/* =========================================================
+   25. RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 720px) {
+
+  body {
+    padding:
+      20px 0;
+
+    overflow-x: hidden;
+
+    background-attachment: scroll;
+  }
+
+
+  .welcome-logo {
+    max-width: 190px;
+  }
+
+
+  .welcome-title {
+    font-size: 2.2rem;
+  }
+
+
+  .home-view {
+    padding:
+      0 16px 30px;
+  }
+
+
+  .home-header {
+    min-height: 58px;
+
+    margin-bottom: 18px;
+  }
+
+
+  .home-logo {
+    max-width: 160px;
+  }
+
+
+  .home-grid {
+    grid-template-columns:
+      1fr;
+
+    gap: 16px;
+  }
+
+
+  .home-card {
+    height: 190px;
+  }
+
+
+  .home-card-title {
+    left: 18px;
+    right: 18px;
+    bottom: 16px;
+
+    font-size: 1.2rem;
+  }
+
+
+  .universal-header {
+    gap: 10px;
+
+    margin-bottom: 18px;
+
+    padding:
+      0 16px;
+  }
+
+
+  .universal-logo {
+    max-width: 180px;
+  }
+
+
+  .universal-back-button {
+    font-size: 0.82rem;
+
+    padding:
+      7px 15px;
+  }
+
+
+  .guide-view,
+  .categories-view,
+  .activities-view,
+  .module-view {
+    padding:
+      0 16px;
+  }
+
+
+  .guide-grid,
+  .categories-grid {
+    grid-template-columns:
+      1fr;
+
+    gap: 16px;
+
+    margin-top: 22px;
+  }
+
+
+  .guide-card,
+  .category-card {
+    height: 190px;
+  }
+
+
+  .guide-card:nth-child(5),
+  #categories-grid
+  .category-card:nth-child(5) {
+    grid-column: auto;
+
+    width: 100%;
+  }
+
+
+  .guide-card-title,
+  .category-card-title {
+    left: 18px;
+    right: 18px;
+    bottom: 16px;
+
+    font-size: 1.2rem;
+  }
+
+
+  .category-header {
+    min-height: auto;
+
+    gap: 8px;
+
+    margin-bottom: 16px;
+
+    padding:
+      0 16px;
+  }
+
+
+  .category-title {
+    font-size: 1.3rem;
+  }
+
+
+  .cards-grid {
+    width: 100%;
+
+    display: flex;
+
+    gap: 14px;
+
+    justify-content:
+      flex-start;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    padding:
+      4px 32px 18px;
+
+    scroll-snap-type:
+      x mandatory;
+
+    scroll-behavior:
+      smooth;
+
+    -webkit-overflow-scrolling:
+      touch;
+
+    scrollbar-width:
+      none;
+  }
+
+
+  .cards-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+
+  .place-card {
+    flex:
+      0 0 calc(100vw - 64px);
+
+    max-width: 400px;
+
+    height: 570px;
+
+    scroll-snap-align:
+      center;
+
+    scroll-snap-stop:
+      always;
+  }
+
+
+  .neighbor-previews {
+    max-width: 420px;
+
+    margin-top: 6px;
+  }
+
+
+  .carousel-counter {
+    display: block;
+  }
+
+
+  .card-title {
+    font-size: 1.2rem;
+  }
+
+
+  .practical-info {
+    padding: 16px;
+
+    gap: 11px;
+  }
+
+
+  .place-card-back {
+    padding:
+      24px 22px;
+  }
+
+
+  .metro-network-back {
+    padding:
+      20px 14px 22px;
+  }
+
+
+  .metro-station-name {
+    font-size: 0.82rem;
+  }
+
+
+  .metro-station-button {
+    padding:
+      7px 6px;
+  }
+
+
+  .metro-station-place-image {
+    width: 42px;
+    height: 42px;
+  }
+
+
+  .metro-station-place-name {
+    font-size: 0.63rem;
+  }
+
+
+  .metro-line-badge {
+    width: 21px;
+    height: 21px;
+
+    font-size: 0.65rem;
+  }
+
+
+  .editorial-front-description {
+    padding:
+      20px 22px;
+  }
+
+
+  .editorial-front-description p {
+    font-size: 0.9rem;
+
+    line-height: 1.5;
+  }
+
+
+  .editorial-card-back {
+    padding:
+      22px 20px 26px;
+  }
+
+
+  .editorial-list {
+    gap: 15px;
+  }
+
+
+  .editorial-item {
+    padding-bottom: 15px;
+  }
+
+}
+
+.traveloptim-map {
+  height: 70vh;
+  min-height: 500px;
+
+  margin-top: 20px;
+
+  border-radius: 16px;
+}
+
+.map-controls {
+  top: 12px;
+  left: 12px;
+
+  width: 165px;
+}
+
+
+.map-accordion-button {
+  padding:
+    10px 12px;
+
+  font-size: 14px;
+}
+
+
+.map-accordion-panel {
+  max-height: 360px;
+
+  overflow-y: auto;
+}
+
+/* =========================================================
+   26. PLANIFIER MON SÉJOUR
+========================================================= */
+
+.planning-view {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   26.1 CARTE PRINCIPALE
+========================================================= */
+
+.planning-card {
+  width: min(
+    100%,
+    980px
+  );
+
+  height: min(
+    78vh,
+    760px
+  );
+
+  perspective: 1600px;
+}
+
+
+.planning-card-inner {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  transform-style: preserve-3d;
+
+  transition:
+    transform 0.7s ease;
+}
+
+
+.planning-card.is-flipped
+.planning-card-inner {
+  transform:
+    rotateY(180deg);
+}
+
+
+/* =========================================================
+   26.2 FACES
+========================================================= */
+
+.planning-card-face {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  box-sizing: border-box;
+
+  border-radius: 18px;
+
+  background:
+    #ffffff;
+
+  box-shadow:
+    0 12px 34px
+    rgba(0, 0, 0, 0.13);
+
+  backface-visibility:
+    hidden;
+
+  -webkit-backface-visibility:
+    hidden;
+
+  -webkit-overflow-scrolling:
+    touch;
+
+  overscroll-behavior:
+    contain;
+
+  scrollbar-width:
+    thin;
+}
+
+
+.planning-card-back {
+  transform:
+    rotateY(180deg);
+}
+
+
+/* =========================================================
+   26.3 CONTENU GÉNÉRAL
+========================================================= */
+
+.planning-content {
+  width: 100%;
+
+  max-width: 860px;
+
+  margin:
+    0 auto;
+
+  padding:
+    42px 48px 56px;
+
+  box-sizing:
+    border-box;
+}
+
+
+.planning-section {
+  margin-bottom:
+    42px;
+}
+
+
+.planning-section:last-child {
+  margin-bottom:
+    0;
+}
+
+
+/* =========================================================
+   26.4 TITRE ET INTRODUCTION
+========================================================= */
+
+.planning-title {
+  margin:
+    0 0 22px;
+
+  font-size:
+    clamp(
+      1.7rem,
+      3vw,
+      2.35rem
+    );
+
+  line-height:
+    1.18;
+
+  text-align:
+    center;
+
+  color:
+    #2f6f78;
+}
+
+
+.planning-intro p,
+.planning-invitation p,
+.planning-example p,
+.planning-process p {
+  margin:
+    0 0 14px;
+
+  font-size:
+    0.98rem;
+
+  line-height:
+    1.7;
+
+  color:
+    #3f3f3f;
+}
+
+
+.planning-intro p:last-child,
+.planning-invitation p:last-child {
+  margin-bottom:
+    0;
+}
+
+
+/* =========================================================
+   26.5 INVITATION AU SERVICE
+========================================================= */
+
+.planning-invitation {
+  padding:
+    26px 28px;
+
+  border-left:
+    4px solid
+    #3AA6B9;
+
+  border-radius:
+    10px;
+
+  background:
+    #f4fafb;
+}
+
+
+.planning-invitation h3 {
+  margin:
+    0 0 12px;
+
+  font-size:
+    1.3rem;
+
+  color:
+    #2f6f78;
+}
+
+
+/* =========================================================
+   26.6 PROTOTYPE — PIÈCE MAÎTRESSE
+========================================================= */
+
+.planning-example {
+  padding:
+    30px;
+
+  border:
+    1px solid
+    rgba(
+      58,
+      166,
+      185,
+      0.28
+    );
+
+  border-radius:
+    16px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f7fcfd 0%,
+      #ffffff 100%
+    );
+
+  box-shadow:
+    0 8px 24px
+    rgba(
+      58,
+      166,
+      185,
+      0.08
+    );
+}
+
+
+.planning-example-heading {
+  text-align:
+    center;
+
+  margin-bottom:
+    22px;
+}
+
+
+.planning-example-label {
+  display:
+    inline-block;
+
+  margin-bottom:
+    8px;
+
+  padding:
+    5px 12px;
+
+  border-radius:
+    999px;
+
+  background:
+    #cae6e8;
+
+  color:
+    #2f6f78;
+
+  font-size:
+    0.78rem;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    0.04em;
+
+  text-transform:
+    uppercase;
+}
+
+
+.planning-example h3 {
+  margin:
+    0;
+
+  font-size:
+    1.55rem;
+
+  color:
+    #2f6f78;
+}
+
+
+/* =========================================================
+   26.7 APERÇU DU PROTOTYPE
+========================================================= */
+
+.planning-example-preview {
+  width:
+    min(
+      100%,
+      650px
+    );
+
+  margin:
+    0 auto 24px;
+}
+
+
+.planning-example-placeholder {
+  min-height:
+    250px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  padding:
+    30px;
+
+  box-sizing:
+    border-box;
+
+  border:
+    2px dashed
+    rgba(
+      58,
+      166,
+      185,
+      0.35
+    );
+
+  border-radius:
+    14px;
+
+  background:
+    #ffffff;
+
+  color:
+    #6b7f82;
+
+  font-size:
+    0.95rem;
+
+  text-align:
+    center;
+}
+
+
+/* =========================================================
+   26.8 BOUTON EXEMPLE
+========================================================= */
+
+.planning-example-button {
+  display:
+    block;
+
+  width:
+    fit-content;
+
+  margin:
+    24px auto 12px;
+
+  padding:
+    12px 22px;
+
+  border-radius:
+    9px;
+
+  background:
+    #3AA6B9;
+
+  color:
+    #ffffff;
+
+  font-size:
+    0.94rem;
+
+  font-weight:
+    700;
+
+  text-decoration:
+    none;
+
+  text-align:
+    center;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+
+@media (hover: hover) {
+
+  .planning-example-button:hover {
+    transform:
+      translateY(-2px);
+
+    box-shadow:
+      0 6px 16px
+      rgba(
+        58,
+        166,
+        185,
+        0.25
+      );
+
+    background:
+      #318fa0;
+  }
+
+}
+
+
+.planning-example-note {
+  margin:
+    14px 0 0 !important;
+
+  font-size:
+    0.8rem !important;
+
+  line-height:
+    1.5 !important;
+
+  text-align:
+    center;
+
+  color:
+    #737373 !important;
+}
+
+
+/* =========================================================
+   26.9 PROCESSUS
+========================================================= */
+
+.planning-process h3 {
+  margin:
+    0 0 24px;
+
+  font-size:
+    1.45rem;
+
+  text-align:
+    center;
+
+  color:
+    #2f6f78;
+}
+
+
+.planning-process-list {
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    14px;
+}
+
+
+.planning-process-step {
+  display:
+    grid;
+
+  grid-template-columns:
+    46px 1fr;
+
+  gap:
+    14px;
+
+  align-items:
+    start;
+
+  padding:
+    16px 18px;
+
+  border-radius:
+    12px;
+
+  background:
+    #f8f9f9;
+}
+
+
+.planning-process-number {
+  width:
+    38px;
+
+  height:
+    38px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  border-radius:
+    50%;
+
+  background:
+    #3AA6B9;
+
+  color:
+    #ffffff;
+
+  font-size:
+    0.95rem;
+
+  font-weight:
+    700;
+}
+
+
+.planning-process-step strong {
+  display:
+    block;
+
+  margin-bottom:
+    5px;
+
+  color:
+    #2f6f78;
+
+  font-size:
+    0.98rem;
+}
+
+
+.planning-process-step p {
+  margin:
+    0;
+
+  font-size:
+    0.9rem;
+
+  line-height:
+    1.55;
+}
+
+
+/* =========================================================
+   26.10 TARIF ET TRANSPARENCE
+========================================================= */
+
+.planning-pricing {
+  padding:
+    28px 24px;
+
+  border-radius:
+    15px;
+
+  background:
+    #cae6e8;
+
+  text-align:
+    center;
+}
+
+
+.planning-price {
+  display:
+    flex;
+
+  flex-wrap:
+    wrap;
+
+  align-items:
+    baseline;
+
+  justify-content:
+    center;
+
+  gap:
+    7px;
+}
+
+
+.planning-price span {
+  font-size:
+    0.95rem;
+
+  color:
+    #365f65;
+}
+
+
+.planning-price strong {
+  font-size:
+    2rem;
+
+  line-height:
+    1;
+
+  color:
+    #2f6f78;
+}
+
+
+.planning-free-request {
+  margin:
+    16px 0 0;
+
+  font-size:
+    0.9rem;
+
+  font-weight:
+    700;
+
+  color:
+    #244d53;
+}
+
+
+/* =========================================================
+   26.11 CTA
+========================================================= */
+
+.planning-cta {
+  text-align:
+    center;
+}
+
+
+.planning-cta h3 {
+  margin:
+    0 0 18px;
+
+  font-size:
+    1.3rem;
+
+  color:
+    #2f6f78;
+}
+
+
+.planning-start-button {
+  min-width:
+    230px;
+
+  padding:
+    14px 24px;
+
+  border:
+    0;
+
+  border-radius:
+    10px;
+
+  background:
+    #3AA6B9;
+
+  color:
+    #ffffff;
+
+  font-family:
+    inherit;
+
+  font-size:
+    1rem;
+
+  font-weight:
+    700;
+
+  cursor:
+    pointer;
+
+  box-shadow:
+    0 5px 14px
+    rgba(
+      58,
+      166,
+      185,
+      0.22
+    );
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+
+@media (hover: hover) {
+
+  .planning-start-button:hover {
+    transform:
+      translateY(-2px);
+
+    background:
+      #318fa0;
+
+    box-shadow:
+      0 8px 20px
+      rgba(
+        58,
+        166,
+        185,
+        0.28
+      );
+  }
+
+}
+
+
+.planning-start-button:active {
+  transform:
+    scale(0.98);
+}
+
+
+/* =========================================================
+   26.12 FACE FORMULAIRE — BASE
+========================================================= */
+
+.planning-card-back {
+  background:
+    #ffffff;
+}
+
+
+.planning-return-button {
+  margin-bottom:
+    24px;
+
+  padding:
+    8px 0;
+
+  border:
+    0;
+
+  background:
+    transparent;
+
+  color:
+    #3AA6B9;
+
+  font-family:
+    inherit;
+
+  font-size:
+    0.9rem;
+
+  font-weight:
+    700;
+
+  cursor:
+    pointer;
+}
+
+
+.planning-form-title {
+  margin:
+    0 0 26px;
+
+  font-size:
+    1.65rem;
+
+  text-align:
+    center;
+
+  color:
+    #2f6f78;
+}
+
+
+.planning-form-placeholder {
+  min-height:
+    320px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  padding:
+    30px;
+
+  border:
+    2px dashed
+    rgba(
+      58,
+      166,
+      185,
+      0.3
+    );
+
+  border-radius:
+    14px;
+
+  box-sizing:
+    border-box;
+
+  background:
+    #f8fcfc;
+
+  color:
+    #6e7e80;
+
+  text-align:
+    center;
+}
+
+
+/* =========================================================
+   26.13 TABLETTE
+========================================================= */
+
+@media (
+  max-width: 900px
+) {
+
+  .planning-view {
+    padding:
+      14px;
+  }
+
+
+  .planning-card {
+    width:
+      100%;
+
+    height:
+      min(
+        80vh,
+        720px
+      );
+  }
+
+
+  .planning-content {
+    padding:
+      34px 32px 50px;
+  }
+
+}
+
+
+/* =========================================================
+   26.14 MOBILE
+========================================================= */
+
+@media (
+  max-width: 600px
+) {
+
+  .planning-view {
+    padding:
+      8px;
+  }
+
+
+  .planning-card {
+    height:
+      calc(
+        100vh - 135px
+      );
+  }
+
+
+  .planning-card-face {
+    border-radius:
+      13px;
+  }
+
+
+  .planning-content {
+    padding:
+      26px 18px 46px;
+  }
+
+
+  .planning-section {
+    margin-bottom:
+      32px;
+  }
+
+
+  .planning-title {
+    font-size:
+      1.55rem;
+  }
+
+
+  .planning-invitation {
+    padding:
+      20px 18px;
+  }
+
+
+  .planning-example {
+    padding:
+      22px 16px;
+  }
+
+
+  .planning-example h3 {
+    font-size:
+      1.32rem;
+  }
+
+
+  .planning-example-placeholder {
+    min-height:
+      210px;
+  }
+
+
+  .planning-example-button {
+    width:
+      100%;
+
+    box-sizing:
+      border-box;
+  }
+
+
+  .planning-process-step {
+    grid-template-columns:
+      40px 1fr;
+
+    gap:
+      10px;
+
+    padding:
+      14px;
+  }
+
+
+  .planning-process-number {
+    width:
+      34px;
+
+    height:
+      34px;
+  }
+
+
+  .planning-pricing {
+    padding:
+      24px 16px;
+  }
+
+
+  .planning-price {
+    flex-direction:
+      column;
+
+    align-items:
+      center;
+
+    gap:
+      4px;
+  }
+
+
+  .planning-start-button {
+    width:
+      100%;
+
+    min-width:
+      0;
+  }
+
+
+  .planning-return-button {
+    margin-bottom:
+      18px;
+  }
+
+}
+
+
+/* =========================================================
+   26.15 TRÈS PETITS ÉCRANS
+========================================================= */
+
+@media (
+  max-width: 380px
+) {
+
+  .planning-content {
+    padding-left:
+      14px;
+
+    padding-right:
+      14px;
+  }
+
+
+  .planning-title {
+    font-size:
+      1.4rem;
+  }
+
+
+  .planning-example {
+    padding-left:
+      12px;
+
+    padding-right:
+      12px;
+  }
+
+}
+
+/* =========================================================
+   26.16 FORMULAIRE DE PLANIFICATION
+========================================================= */
+
+.planning-form {
+  width: 100%;
+}
+
+
+.planning-form-section {
+  margin: 0 0 30px;
+  padding: 24px;
+
+  border:
+    1px solid
+    rgba(58, 166, 185, 0.22);
+
+  border-radius: 14px;
+
+  background: #fafdfe;
+}
+
+
+.planning-form-section legend {
+  padding: 0 10px;
+
+  color: #2f6f78;
+
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+
+.planning-form-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 18px;
+}
+
+
+.planning-field {
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+
+.planning-field-full {
+  grid-column: 1 / -1;
+}
+
+
+.planning-field label,
+.planning-choice-title {
+  color: #354f53;
+
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+
+.planning-field input,
+.planning-field select,
+.planning-field textarea {
+  width: 100%;
+
+  padding: 11px 12px;
+
+  box-sizing: border-box;
+
+  border:
+    1px solid
+    #cbd8da;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #333333;
+
+  font-family: inherit;
+  font-size: 0.92rem;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.planning-field input:focus,
+.planning-field select:focus,
+.planning-field textarea:focus {
+  border-color: #3AA6B9;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(58, 166, 185, 0.12);
+}
+
+
+.planning-field textarea {
+  resize: vertical;
+
+  min-height: 130px;
+}
+
+
+.planning-field-help {
+  margin: 9px 0 0;
+
+  color: #718083;
+
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   26.17 CHOIX
+========================================================= */
+
+.planning-choice-group {
+  margin-top: 22px;
+}
+
+
+.planning-choice-title {
+  display: block;
+
+  margin-bottom: 10px;
+}
+
+
+.planning-inline-options,
+.planning-choice-list {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+}
+
+
+.planning-choice {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 9px 13px;
+
+  border:
+    1px solid
+    #d4dfe1;
+
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #3d5154;
+
+  font-size: 0.87rem;
+
+  cursor: pointer;
+}
+
+
+.planning-choice input {
+  accent-color: #3AA6B9;
+}
+
+
+/* =========================================================
+   26.18 FAVORIS
+========================================================= */
+
+.planning-favorites-section {
+  background:
+    linear-gradient(
+      180deg,
+      #f7fcfd 0%,
+      #ffffff 100%
+    );
+}
+
+
+.planning-favorites-choice {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 12px;
+
+  cursor: pointer;
+}
+
+
+.planning-favorites-choice input {
+  margin-top: 4px;
+
+  accent-color: #3AA6B9;
+}
+
+
+.planning-favorites-choice strong {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #2f6f78;
+
+  font-size: 0.92rem;
+}
+
+
+.planning-favorites-choice small {
+  display: block;
+
+  color: #65777a;
+
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+
+.planning-favorites-preview {
+  margin-top: 16px;
+}
+
+/* =========================================================
+   26.18.1 PLANIFICATION — LISTE DES FAVORIS
+========================================================= */
+
+.planning-favorites-count {
+  margin-bottom: 10px;
+
+  color: #60777b;
+
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+
+.planning-favorites-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+
+.planning-favorite-row {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 9px 11px;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  border:
+    1px solid
+    rgba(58, 166, 185, 0.14);
+}
+
+
+.planning-favorite-icon {
+  flex: 0 0 auto;
+
+  font-size: 1rem;
+}
+
+
+.planning-favorite-name {
+  min-width: 0;
+
+  color: #40575b;
+
+  font-size: 0.86rem;
+
+  line-height: 1.35;
+}
+
+
+.planning-favorites-empty {
+  padding: 13px;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #718083;
+
+  font-size: 0.84rem;
+
+  text-align: center;
+}
+
+/* =========================================================
+   26.19 ENVOI DU FORMULAIRE
+========================================================= */
+
+.planning-form-submit-area {
+  padding: 26px;
+
+  border-radius: 14px;
+
+  background: #cae6e8;
+
+  text-align: center;
+}
+
+
+.planning-form-reminder {
+  max-width: 600px;
+
+  margin:
+    0 auto 18px;
+
+  color: #31575d;
+
+  font-size: 0.86rem;
+  font-weight: 600;
+
+  line-height: 1.5;
+}
+
+
+.planning-submit-button {
+  min-width: 230px;
+
+  padding: 14px 24px;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: #3AA6B9;
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+@media (hover: hover) {
+
+  .planning-submit-button:hover {
+    background: #318fa0;
+
+    transform:
+      translateY(-2px);
+
+    box-shadow:
+      0 7px 18px
+      rgba(58, 166, 185, 0.25);
+  }
+
+}
+
+
+
+/* =========================================================
+   26.20 FORMULAIRE — MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .planning-form-section {
+    padding: 19px 15px;
+
+    margin-bottom: 24px;
+  }
+
+
+  .planning-form-grid {
+    grid-template-columns: 1fr;
+
+    gap: 16px;
+  }
+
+
+  .planning-field-full {
+    grid-column: auto;
+  }
+
+
+  .planning-inline-options,
+  .planning-choice-list {
+    flex-direction: column;
+  }
+
+
+  .planning-choice {
+    width: 100%;
+
+    box-sizing: border-box;
+  }
+
+
+  .planning-form-submit-area {
+    padding: 22px 15px;
+  }
+
+
+  .planning-submit-button {
+    width: 100%;
+
+    min-width: 0;
+  }
+
+}
+
+/* =========================================================
+   26.21 AJUSTEMENTS — CHOIX DU FORMULAIRE
+========================================================= */
+
+.planning-form-section
+.planning-choice-group {
+  margin-bottom: 22px;
+}
+
+
+.planning-form-section
+.planning-choice-list {
+  margin-top: 10px;
+}
+
+
+.planning-form-section
+.planning-choice-group
++ .planning-field {
+  margin-top: 22px;
+}
+
+
+.planning-form-section
+.planning-field label {
+  margin-bottom: 2px;
+}
+
+/* =========================================================
+   26.22 PLANIFICATION — CONFIRMATION D'ENVOI
+========================================================= */
+
+.planning-success {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 32px 56px;
+
+  text-align: center;
+}
+
+
+/* Icône de confirmation */
+
+.planning-success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 68px;
+  height: 68px;
+
+  margin: 0 auto 24px;
+
+  border-radius: 50%;
+
+  background: #CAE6E8;
+  color: #3AA6B9;
+
+  font-size: 34px;
+  font-weight: 700;
+}
+
+
+/* Titre */
+
+.planning-success-title {
+  margin: 0 0 20px;
+
+  font-size: 28px;
+  line-height: 1.25;
+
+  color: #1f2933;
+}
+
+
+/* Textes */
+
+.planning-success-text,
+.planning-success-email,
+.planning-success-blog-text {
+  margin: 0 auto 16px;
+
+  max-width: 600px;
+
+  font-size: 16px;
+  line-height: 1.65;
+
+  color: #4b5563;
+}
+
+
+.planning-success-email {
+  font-weight: 600;
+}
+
+
+.planning-success-blog-text {
+  margin-top: 28px;
+}
+
+
+/* Bouton vers le blog */
+
+.planning-success-blog-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 8px;
+  padding: 13px 24px;
+
+  border-radius: 10px;
+
+  background: #3AA6B9;
+  color: #ffffff;
+
+  font-weight: 600;
+  text-decoration: none;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+
+.planning-success-blog-button:hover {
+  transform: translateY(-2px);
+  opacity: 0.92;
+}
+
+
+.planning-success-blog-button:focus-visible {
+  outline: 3px solid #CAE6E8;
+  outline-offset: 3px;
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  .planning-success {
+    padding:
+      36px 18px
+      48px;
+  }
+
+
+  .planning-success-icon {
+    width: 60px;
+    height: 60px;
+
+    margin-bottom: 20px;
+
+    font-size: 30px;
+  }
+
+
+  .planning-success-title {
+    font-size: 23px;
+  }
+
+
+  .planning-success-text,
+  .planning-success-email,
+  .planning-success-blog-text {
+    font-size: 15px;
+  }
+
+
+  .planning-success-blog-button {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 14px 18px;
+  }
+
+}
+
+/* =========================================================
+   26.23 ÂGE DES ENFANTS
+========================================================= */
+
+.planning-children-ages {
+  margin-top: 18px;
+}
+
+
+.planning-children-ages-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 18px;
+
+  margin-top: 14px;
+}
+
+
+@media (max-width: 600px) {
+
+  .planning-children-ages-grid {
+    grid-template-columns: 1fr;
+
+    gap: 16px;
+  }
+
+}

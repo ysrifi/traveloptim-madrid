@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="fr">
+ <head>
+  <!-- =========================================================
+     TRAVELOPTIM MADRID — APPLICATION INTERACTIVE
+
+     SOMMAIRE
+
+     01. Configuration et dépendances
+     02. Structure principale
+     03. Vue d'accueil
+     04. Menu principal
+     05. En-tête universel
+
+     06. Vue Guide
+     07. Vue À voir
+     08. Vue À faire
+     09. Vue Catégorie
+     10. Vue Itinéraires
+
+     11. Vue Carte interactive
+         11.1 Menu principal de la carte
+         11.2 Panneau principal
+              11.2.1 Recherche et géolocalisation
+              11.2.2 Métro
+              11.2.3 Lieux
+              11.2.4 Mes favoris
+              11.2.5 Itinéraires
+         11.3 Conteneur Leaflet
+
+     12. Vue Planifier mon séjour
+         12.1 Présentation du service
+         12.2 Formulaire
+              12.2.1 Votre séjour
+              12.2.2 Arrivée à Madrid
+              12.2.3 Départ de Madrid
+              12.2.4 Hébergement
+              12.2.5 Voyageurs
+              12.2.6 Favoris TravelOptim
+              12.2.7 Demandes particulières
+              12.2.8 Envoi
+         12.3 Confirmation d'envoi
+
+     13. Vue À propos
+
+     14. Données
+     15. Dépendances cartographiques
+     16. Moteur principal
+========================================================= -->
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   TravelOptim Madrid - Guide interactif
+  </title>
+  <link crossorigin="" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" rel="stylesheet"/>
+  <link href="https://unpkg.com/leaflet.fullscreen/dist/Control.FullScreen.css" rel="stylesheet"/>
+  <!-- OpenFreeMap / MapLibre -->
+  <link href="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.css" rel="stylesheet"/>
+  <link href="style.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <main class="prototype">
+   <!-- =======================================================
+         03. VUE D'ACCUEIL
+    ======================================================== -->
+   <section class="welcome-view" id="welcome-view">
+    <div class="welcome-overlay">
+     <div class="welcome-content">
+      <img alt="TravelOptim Madrid" class="welcome-logo" src="logo-traveloptim.webp"/>
+      <div class="welcome-language-switcher">
+       <button class="language-button active" data-language="fr" type="button">
+        FR
+       </button>
+       <span class="language-separator">
+        |
+       </span>
+       <button class="language-button" data-language="en" type="button">
+        EN
+       </button>
+      </div>
+      <h1 class="welcome-title" id="welcome-title">
+       Bienvenue à Madrid
+      </h1>
+      <button class="welcome-explore-button" id="welcome-explore-button" type="button">
+       Explorer Madrid
+      </button>
+     </div>
+     <button class="welcome-about-button" id="welcome-about-button" type="button">
+      À propos
+     </button>
+    </div>
+   </section>
+   <!-- =======================================================
+         04. MENU PRINCIPAL
+    ======================================================== -->
+   <section class="home-view" hidden="" id="home-view">
+    <div class="home-header">
+     <img alt="TravelOptim Madrid" class="home-logo" src="logo-traveloptim.webp"/>
+     <div class="home-language-switcher">
+      <button class="language-button active" data-language="fr" type="button">
+       FR
+      </button>
+      <span class="language-separator">
+       |
+      </span>
+      <button class="language-button" data-language="en" type="button">
+       EN
+      </button>
+     </div>
+     <button class="home-back-button" id="home-back-button" type="button">
+      ← Accueil
+     </button>
+    </div>
+    <h1 class="home-title" id="home-title">
+     Explorer Madrid
+    </h1>
+    <div class="home-grid">
+     <button class="home-card" id="home-guide-button" type="button">
+      <img alt="" class="home-card-image" src="images/guide.webp"/>
+      <span class="home-card-title" id="home-guide-title">
+       Guide
+      </span>
+     </button>
+     <button class="home-card" id="home-routes-button" type="button">
+      <img alt="" class="home-card-image" src="images/itineraires.webp"/>
+      <span class="home-card-title" id="home-routes-title">
+       Itinéraires
+      </span>
+     </button>
+     <button class="home-card" id="home-map-button" type="button">
+      <img alt="" class="home-card-image" src="images/carte-interactive.webp"/>
+      <span class="home-card-title" id="home-map-title">
+       Carte interactive
+      </span>
+     </button>
+     <button class="home-card" id="home-planning-button" type="button">
+      <img alt="" class="home-card-image" src="images/planifier-mon-sejour.webp"/>
+      <span class="home-card-title" id="home-planning-title">
+       Planifier mon séjour
+      </span>
+     </button>
+    </div>
+   </section>
+   <!-- =======================================================
+         05. EN-TÊTE UNIVERSEL
+    ======================================================== -->
+   <header class="universal-header" hidden="" id="universal-header">
+    <img alt="TravelOptim Madrid" class="universal-logo" src="logo-traveloptim.webp"/>
+    <div class="universal-language-switcher">
+     <button class="language-button active" data-language="fr" type="button">
+      FR
+     </button>
+     <span class="language-separator">
+      |
+     </span>
+     <button class="language-button" data-language="en" type="button">
+      EN
+     </button>
+    </div>
+    <button class="universal-back-button" id="universal-back-button" type="button">
+     ← Retour
+    </button>
+   </header>
+   <!-- =======================================================
+         06. VUE GUIDE
+    ======================================================== -->
+   <section class="guide-view" hidden="" id="guide-view">
+    <h2 class="section-title" id="guide-title">
+     Guide
+    </h2>
+    <div class="guide-grid" id="guide-grid">
+     <button class="guide-card" data-guide-section="voir" type="button">
+      <img alt="À voir" class="guide-card-image" src="images/guide/a-voir.webp"/>
+      <span class="guide-card-title">
+       À voir
+      </span>
+     </button>
+     <button class="guide-card" data-guide-section="faire" type="button">
+      <img alt="À faire" class="guide-card-image" src="images/guide/a-faire.webp"/>
+      <span class="guide-card-title">
+       À faire
+      </span>
+     </button>
+     <button class="guide-card" data-guide-section="quartiers" type="button">
+      <img alt="Quartiers" class="guide-card-image" src="images/guide/quartiers.webp"/>
+      <span class="guide-card-title">
+       Quartiers
+      </span>
+     </button>
+     <button class="guide-card" data-guide-section="transport" type="button">
+      <img alt="Se déplacer" class="guide-card-image" src="images/guide/se-deplacer.webp"/>
+      <span class="guide-card-title">
+       Se déplacer
+      </span>
+     </button>
+     <button class="guide-card guide-card-favorites" data-guide-section="favoris" type="button">
+      <img alt="Mes favoris" class="guide-card-image" src="images/guide/mes-favoris.webp"/>
+      <span class="guide-card-title">
+       Mes favoris
+      </span>
+     </button>
+    </div>
+   </section>
+   <!-- =======================================================
+         07. VUE À VOIR
+    ======================================================== -->
+   <section class="categories-view" hidden="" id="categories-view">
+    <div class="category-header">
+     <h2 class="section-title" id="categories-title">
+      À voir
+     </h2>
+    </div>
+    <div class="categories-grid" id="categories-grid">
+    </div>
+   </section>
+   <!-- =======================================================
+         08. VUE À FAIRE
+    ======================================================== -->
+   <section class="activities-view" hidden="" id="activities-view">
+    <div class="category-header">
+     <h2 class="section-title" id="activities-title">
+      À faire
+     </h2>
+    </div>
+    <div class="categories-grid" id="activities-grid">
+    </div>
+   </section>
+   <!-- =======================================================
+         09. VUE CATÉGORIE
+    ======================================================== -->
+   <section class="category-view" hidden="" id="category-view">
+    <div class="category-header">
+     <h2 class="category-title" id="category-title">
+     </h2>
+    </div>
+    <div class="cards-navigation">
+     <button aria-label="Carte précédente" class="carousel-arrow carousel-arrow-left" id="carousel-prev" type="button">
+      ‹
+     </button>
+     <div class="cards-grid" id="cards-grid">
+     </div>
+     <button aria-label="Carte suivante" class="carousel-arrow carousel-arrow-right" id="carousel-next" type="button">
+      ›
+     </button>
+    </div>
+    <div class="neighbor-previews" id="neighbor-previews">
+     <button aria-label="Carte précédente" class="neighbor-preview neighbor-preview-prev" id="preview-prev" type="button">
+      <img alt="" id="preview-prev-image" src=""/>
+     </button>
+     <button aria-label="Carte suivante" class="neighbor-preview neighbor-preview-next" id="preview-next" type="button">
+      <img alt="" id="preview-next-image" src=""/>
+     </button>
+    </div>
+    <div aria-live="polite" class="carousel-counter" id="carousel-counter">
+    </div>
+    <p class="flip-hint" id="flip-hint">
+    </p>
+   </section>
+   <!-- =======================================================
+         10. VUE ITINÉRAIRES
+    ======================================================== -->
+   <section class="module-view" hidden="" id="routes-view">
+    <h2 class="section-title" id="routes-title">
+     Itinéraires
+    </h2>
+    <div class="cards-navigation" id="routes-navigation">
+     <button aria-label="Itinéraire précédent" class="carousel-arrow carousel-arrow-left" id="routes-prev" type="button">
+      ‹
+     </button>
+     <div class="cards-grid" id="routes-grid">
+     </div>
+     <button aria-label="Itinéraire suivant" class="carousel-arrow carousel-arrow-right" id="routes-next" type="button">
+      ›
+     </button>
+    </div>
+   </section>
+   <!-- =======================================================
+         11. VUE CARTE INTERACTIVE
+    ======================================================== -->
+   <section class="module-view" hidden="" id="map-view">
+    <h2 class="section-title" id="map-title">
+     Carte interactive
+    </h2>
+    <div class="map-wrapper">
+     <!-- ===================================================
+         11.1 MENU PRINCIPAL DE LA CARTE
+    ==================================================== -->
+     <div class="map-menu" id="map-menu">
+      <!-- Bouton principal -->
+      <button aria-controls="map-menu-panel" aria-expanded="false" class="map-menu-button" id="map-menu-button" type="button">
+       <span aria-hidden="true" class="map-menu-icon">
+        ☰
+       </span>
+       <span id="map-menu-title">
+        Menu
+       </span>
+      </button>
+      <!-- ===================================================
+         11.2 PANNEAU PRINCIPAL DU MENU
+    ==================================================== -->
+      <div class="map-menu-panel" hidden="" id="map-menu-panel">
+       <!-- =================================================
+         11.2.1 RECHERCHE ET GÉOLOCALISATION
+    ================================================== -->
+       <div class="map-search-section">
+        <!-- Recherche -->
+        <div class="map-search-box">
+         <label class="map-search-label" for="map-place-search" id="map-search-label">
+          🔎 Rechercher un lieu
+         </label>
+         <input autocomplete="off" class="map-search-input" id="map-place-search" placeholder="Rechercher..." type="search"/>
+        </div>
+        <!-- Résultats de recherche -->
+        <div class="map-search-results" hidden="" id="map-search-results">
+        </div>
+        <!-- Géolocalisation -->
+        <button class="map-location-button" id="map-location-button" type="button">
+         <span aria-hidden="true">
+          📍
+         </span>
+         <span id="map-location-button-label">
+          Me localiser
+         </span>
+        </button>
+        <!-- Résultats à proximité -->
+        <div class="map-nearby-section" hidden="" id="map-nearby-section">
+         <div class="map-nearby-header">
+          <div class="map-nearby-title" id="map-nearby-title">
+           Lieux à moins de 1 km
+          </div>
+          <button aria-label="Fermer" class="map-nearby-close" id="map-nearby-close" title="Fermer" type="button">
+           ✕
+          </button>
+         </div>
+         <div class="map-nearby-results" id="map-nearby-results">
+         </div>
+        </div>
+       </div>
+       <!-- =================================================
+         11.2.2 MÉTRO
+    ================================================== -->
+       <div class="map-menu-section">
+        <button aria-controls="metro-control-panel" aria-expanded="false" class="map-accordion-button" id="metro-accordion-button" type="button">
+         <span class="map-accordion-title" id="map-metro-title">
+          🚇 Métro
+         </span>
+         <span aria-hidden="true" class="map-accordion-arrow">
+          ⌄
+         </span>
+        </button>
+        <div class="map-accordion-panel" hidden="" id="metro-control-panel">
+         <label class="map-control-option">
+          <input checked="" id="metro-stations-toggle" type="checkbox"/>
+          <span aria-hidden="true" class="map-filter-icon">
+           🚉
+          </span>
+          <span id="map-stations-label">
+           Stations
+          </span>
+         </label>
+         <div class="metro-lines-control">
+          <label class="map-control-option">
+           <input data-metro-line="1" type="checkbox"/>
+           <span>
+            L1
+           </span>
+          </label>
+          <label class="map-control-option">
+           <input data-metro-line="2" type="checkbox"/>
+           <span>
+            L2
+           </span>
+          </label>
+          <label class="map-control-option">
+           <input data-metro-line="3" type="checkbox"/>
+           <span>
+            L3
+           </span>
+          </label>
+          <label class="map-control-option">
+           <input data-metro-line="4" type="checkbox"/>
+           <span>
+            L4
+           </span>
+          </label>
+          <label class="map-control-option">
+           <input data-metro-line="5" type="checkbox"/>
+           <span>
+            L5
+           </span>
+          </label>
+          <label class="map-control-option">
+           <input data-metro-line="6" type="checkbox"/>
+           <span>
+            L6
+           </span>
+          </label>
+          <label class="map-control-option">
+           <input data-metro-line="7" type="checkbox"/>
+           <span>
+            L7
+           </span>
+          </label>
+          <label class="map-control-option">
+           <input data-metro-line="8" type="checkbox"/>
+           <span>
+            L8
+           </span>
+          </label>
+          <label class="map-control-option">
+           <input data-metro-line="9" type="checkbox"/>
+           <span>
+            L9
+           </span>
+          </label>
+          <label class="map-control-option">
+           <input data-metro-line="10" type="checkbox"/>
+           <span>
+            L10
+           </span>
+          </label>
+          <label class="map-control-option">
+           <input data-metro-line="11" type="checkbox"/>
+           <span>
+            L11
+           </span>
+          </label>
+          <label class="map-control-option">
+           <input data-metro-line="12" type="checkbox"/>
+           <span>
+            L12
+           </span>
+          </label>
+         </div>
+        </div>
+       </div>
+       <!-- =================================================
+         11.2.3 LIEUX
+    ================================================== -->
+       <div class="map-menu-section">
+        <button aria-controls="places-control-panel" aria-expanded="false" class="map-accordion-button" id="places-accordion-button" type="button">
+         <span class="map-accordion-title" id="places-filter-title">
+          📍 Lieux
+         </span>
+         <span aria-hidden="true" class="map-accordion-arrow">
+          ⌄
+         </span>
+        </button>
+        <div class="map-accordion-panel" hidden="" id="places-control-panel">
+         <label class="map-control-option">
+          <input checked="" id="places-all-toggle" type="checkbox"/>
+          <span aria-hidden="true" class="map-filter-icon">
+           📍
+          </span>
+          <span data-map-filter-label="all">
+           Tous
+          </span>
+         </label>
+         <label class="map-control-option">
+          <input checked="" data-place-category="incontournables" type="checkbox"/>
+          <span aria-hidden="true" class="map-filter-icon">
+           ⭐
+          </span>
+          <span data-map-filter-label="incontournables">
+           Incontournables
+          </span>
+         </label>
+         <label class="map-control-option">
+          <input checked="" data-place-category="places" type="checkbox"/>
+          <span aria-hidden="true" class="map-filter-icon">
+           🏰
+          </span>
+          <span data-map-filter-label="places">
+           Places
+          </span>
+         </label>
+         <label class="map-control-option">
+          <input checked="" data-place-category="monuments" type="checkbox"/>
+          <span aria-hidden="true" class="map-filter-icon">
+           🏛️
+          </span>
+          <span data-map-filter-label="monuments">
+           Monuments
+          </span>
+         </label>
+         <label class="map-control-option">
+          <input checked="" data-place-category="musees" type="checkbox"/>
+          <span aria-hidden="true" class="map-filter-icon">
+           🎨
+          </span>
+          <span data-map-filter-label="musees">
+           Musées
+          </span>
+         </label>
+         <label class="map-control-option">
+          <input checked="" data-place-category="parcs" type="checkbox"/>
+          <span aria-hidden="true" class="map-filter-icon">
+           🌳
+          </span>
+          <span data-map-filter-label="parcs">
+           Parcs
+          </span>
+         </label>
+         <label class="map-control-option">
+          <input checked="" data-place-category="famille" type="checkbox"/>
+          <span aria-hidden="true" class="map-filter-icon">
+           👨‍👩‍👧
+          </span>
+          <span data-map-filter-label="famille">
+           Famille
+          </span>
+         </label>
+         <label class="map-control-option">
+          <input checked="" data-place-category="operaFlamenco" type="checkbox"/>
+          <span aria-hidden="true" class="map-filter-icon">
+           🎭
+          </span>
+          <span data-map-filter-label="operaFlamenco">
+           Opéra / Flamenco
+          </span>
+         </label>
+         <label class="map-control-option">
+          <input checked="" data-place-category="evenementsSportifs" type="checkbox"/>
+          <span aria-hidden="true" class="map-filter-icon">
+           🏟️
+          </span>
+          <span data-map-filter-label="evenementsSportifs">
+           Événements sportifs
+          </span>
+         </label>
+         <label class="map-control-option">
+          <input checked="" data-place-category="shopping" type="checkbox"/>
+          <span aria-hidden="true" class="map-filter-icon">
+           🛍️
+          </span>
+          <span data-map-filter-label="shopping">
+           Shopping
+          </span>
+         </label>
+         <label class="map-control-option">
+          <input checked="" data-place-category="panoramique" type="checkbox"/>
+          <span aria-hidden="true" class="map-filter-icon">
+           📷
+          </span>
+          <span data-map-filter-label="panoramique">
+           Vue panoramique
+          </span>
+         </label>
+        </div>
+       </div>
+       <!-- =================================================
+     11.2.4 MES FAVORIS
+================================================== -->
+       <div class="map-menu-section">
+        <button aria-controls="favorites-map-control-panel" aria-expanded="false" class="map-accordion-button" id="favorites-map-accordion-button" type="button">
+         <span class="map-accordion-title" id="map-favorites-title">
+          ❤️ Mes favoris
+         </span>
+         <span aria-hidden="true" class="map-accordion-arrow">
+          ⌄
+         </span>
+        </button>
+        <div class="map-accordion-panel" hidden="" id="favorites-map-control-panel">
+         <div class="map-menu-placeholder" id="map-favorites-placeholder">
+          Mes favoris
+         </div>
+        </div>
+       </div>
+       <!-- =================================================
+         11.2.5 ITINÉRAIRES
+    ================================================== -->
+       <div class="map-menu-section">
+        <button aria-controls="routes-map-control-panel" aria-expanded="false" class="map-accordion-button" id="routes-map-accordion-button" type="button">
+         <span class="map-accordion-title" id="map-routes-title">
+          🧭 Itinéraires
+         </span>
+         <span aria-hidden="true" class="map-accordion-arrow">
+          ⌄
+         </span>
+        </button>
+        <div class="map-accordion-panel" hidden="" id="routes-map-control-panel">
+         <div class="map-menu-placeholder" id="map-routes-placeholder">
+          Itinéraires
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <!-- ===================================================
+         11.3 CONTENEUR LEAFLET
+    ==================================================== -->
+     <div aria-label="Carte interactive de Madrid" class="traveloptim-map" id="traveloptim-map">
+     </div>
+    </div>
+   </section>
+   <!-- =======================================================
+     12. VUE PLANIFIER MON SÉJOUR
+======================================================== -->
+   <section class="planning-view" hidden="" id="planning-view">
+    <div class="planning-card" id="planning-card">
+     <div class="planning-card-inner" id="planning-card-inner">
+      <!-- ===============================================
+         12.1 FACE AVANT — PRÉSENTATION
+    ================================================ -->
+      <div class="planning-card-face planning-card-front" id="planning-card-front">
+       <div class="planning-content">
+        <!-- Expertise -->
+        <section class="planning-section planning-intro">
+         <h2 class="planning-title" id="planning-title">
+          Planifier votre séjour à Madrid
+            avec TravelOptim
+         </h2>
+         <p id="planning-intro-text">
+          Madrid est une ville que j’ai eu
+            l’occasion de découvrir au fil de
+            plusieurs séjours, en explorant ses
+            quartiers, ses principaux sites, ses
+            transports et différentes façons
+            d’organiser une visite efficace.
+         </p>
+         <p id="planning-expertise-text">
+          Cette expérience m’a permis de
+            construire TravelOptim Madrid comme
+            un véritable outil d’aide à la visite :
+            guide structuré, itinéraires
+            thématiques, carte interactive,
+            géolocalisation, favoris et
+            organisation des déplacements.
+         </p>
+        </section>
+        <!-- Invitation -->
+        <section class="planning-section planning-invitation">
+         <h3 id="planning-invitation-title">
+          Vous souhaitez aller plus loin ?
+         </h3>
+         <p id="planning-invitation-text">
+          Si vous recherchez une planification
+            plus personnalisée, adaptée à vos
+            dates, à votre rythme, à vos
+            préférences et à votre hébergement,
+            je peux préparer pour vous un
+            programme de séjour sur mesure.
+         </p>
+        </section>
+        <!-- Prototype -->
+        <section class="planning-section planning-example">
+         <div class="planning-example-heading">
+          <span class="planning-example-label" id="planning-example-label">
+           Exemple concret
+          </span>
+          <h3 id="planning-example-title">
+           Voilà à quoi vous attendre
+          </h3>
+         </div>
+         <div class="planning-example-preview">
+          <!--
+              L'aperçu visuel du prototype
+              sera ajouté ici.
+            -->
+          <div class="planning-example-placeholder" id="planning-example-placeholder">
+           Aperçu de la planification
+              personnalisée
+          </div>
+         </div>
+         <p id="planning-example-text">
+          Découvrez un exemple concret du
+            document que vous pourrez recevoir :
+            journées structurées, ordre des
+            visites, déplacements,
+            recommandations pratiques et
+            organisation adaptée au temps
+            disponible.
+         </p>
+         <a class="planning-example-button" href="#" id="planning-example-button" rel="noopener noreferrer" target="_blank">
+          Voir un exemple de planification
+         </a>
+         <p class="planning-example-note" id="planning-example-note">
+          Exemple fourni à titre illustratif.
+            Chaque planification est adaptée au
+            séjour et aux préférences du
+            voyageur.
+         </p>
+        </section>
+        <!-- Processus -->
+        <section class="planning-section planning-process">
+         <h3 id="planning-process-title">
+          Comment fonctionne le service ?
+         </h3>
+         <div class="planning-process-list">
+          <div class="planning-process-step">
+           <span class="planning-process-number">
+            1
+           </span>
+           <div>
+            <strong id="planning-step-1-title">
+             Vous m’envoyez votre demande
+            </strong>
+            <p id="planning-step-1-text">
+             Vous renseignez les informations
+                  principales de votre séjour et
+                  vos préférences.
+            </p>
+           </div>
+          </div>
+          <div class="planning-process-step">
+           <span class="planning-process-number">
+            2
+           </span>
+           <div>
+            <strong id="planning-step-2-title">
+             J’analyse votre projet
+            </strong>
+            <p id="planning-step-2-text">
+             J’étudie vos dates, vos
+                  contraintes, vos favoris et les
+                  possibilités d’organisation.
+            </p>
+           </div>
+          </div>
+          <div class="planning-process-step">
+           <span class="planning-process-number">
+            3
+           </span>
+           <div>
+            <strong id="planning-step-3-title">
+             Vous recevez un devis personnalisé
+            </strong>
+            <p id="planning-step-3-text">
+             La planification est proposée
+                  à partir de 20 € par journée
+                  de séjour.
+            </p>
+           </div>
+          </div>
+          <div class="planning-process-step">
+           <span class="planning-process-number">
+            4
+           </span>
+           <div>
+            <strong id="planning-step-4-title">
+             Vous décidez librement
+            </strong>
+            <p id="planning-step-4-text">
+             Aucun paiement n’est demandé
+                  lors de l’envoi du formulaire.
+                  Vous ne payez qu’après avoir
+                  accepté le devis.
+            </p>
+           </div>
+          </div>
+          <div class="planning-process-step">
+           <span class="planning-process-number">
+            5
+           </span>
+           <div>
+            <strong id="planning-step-5-title">
+             Je prépare votre planification
+            </strong>
+            <p id="planning-step-5-text">
+             Votre programme personnalisé
+                  est ensuite préparé pour votre
+                  séjour à Madrid.
+            </p>
+           </div>
+          </div>
+         </div>
+        </section>
+        <!-- Transparence commerciale -->
+        <section class="planning-section planning-pricing">
+         <div class="planning-price">
+          <span id="planning-price-label">
+           À partir de
+          </span>
+          <strong id="planning-price-value">
+           20 €
+          </strong>
+          <span id="planning-price-unit">
+           par journée de séjour
+          </span>
+         </div>
+         <p class="planning-free-request" id="planning-free-request">
+          L’envoi de votre demande est gratuit
+            et sans engagement.
+         </p>
+        </section>
+        <!-- CTA -->
+        <section class="planning-section planning-cta">
+         <h3 id="planning-cta-title">
+          Prêt à préparer votre séjour ?
+         </h3>
+         <button class="planning-start-button" id="planning-start-button" type="button">
+          Commencer ma demande
+         </button>
+        </section>
+       </div>
+      </div>
+      <!-- ===============================================
+         12.2 FACE ARRIÈRE — FORMULAIRE
+    ================================================ -->
+      <div class="planning-card-face planning-card-back" id="planning-card-back">
+       <div class="planning-content">
+        <button class="planning-return-button" id="planning-return-button" type="button">
+         ← Présentation du service
+        </button>
+        <h2 class="planning-form-title" id="planning-form-title">
+         Ma demande de planification
+        </h2>
+        <form action="https://formspree.io/f/mgaelywd" class="planning-form" id="planning-form" method="POST">
+         <!-- ===============================================
+     12.2.1 VOTRE SÉJOUR
+  ================================================ -->
+         <fieldset class="planning-form-section">
+          <legend id="planning-stay-title">
+           Votre séjour
+          </legend>
+          <div class="planning-form-grid">
+           <div class="planning-field">
+            <label for="planning-name" id="planning-name-label">
+             Nom
+            </label>
+            <input id="planning-name" name="name" required="" type="text"/>
+           </div>
+           <div class="planning-field">
+            <label for="planning-email" id="planning-email-label">
+             Adresse e-mail
+            </label>
+            <input id="planning-email" name="email" required="" type="email"/>
+           </div>
+           <div class="planning-field">
+            <label for="planning-arrival-date" id="planning-arrival-date-label">
+             Date d’arrivée à Madrid
+            </label>
+            <input id="planning-arrival-date" name="arrivalDate" required="" type="date"/>
+           </div>
+           <div class="planning-field">
+            <label for="planning-departure-date" id="planning-departure-date-label">
+             Date de départ de Madrid
+            </label>
+            <input id="planning-departure-date" name="departureDate" required="" type="date"/>
+           </div>
+          </div>
+         </fieldset>
+         <!-- ===============================================
+     12.2.2 ARRIVÉE À MADRID
+  ================================================ -->
+         <fieldset class="planning-form-section">
+          <legend id="planning-arrival-title">
+           Votre arrivée à Madrid
+          </legend>
+          <div class="planning-form-grid">
+           <div class="planning-field">
+            <label for="planning-arrival-time" id="planning-arrival-time-label">
+             Heure d’arrivée prévue
+            </label>
+            <input id="planning-arrival-time" name="arrivalTime" type="time"/>
+           </div>
+           <div class="planning-field">
+            <label for="planning-arrival-mode" id="planning-arrival-mode-label">
+             Moyen d’arrivée
+            </label>
+            <select id="planning-arrival-mode" name="arrivalMode">
+             <option id="planning-arrival-mode-empty" value="">
+              Sélectionner
+             </option>
+             <option id="planning-arrival-mode-plane" value="plane">
+              Avion
+             </option>
+             <option id="planning-arrival-mode-train" value="train">
+              Train
+             </option>
+             <option id="planning-arrival-mode-bus" value="bus">
+              Bus
+             </option>
+             <option id="planning-arrival-mode-car" value="car">
+              Voiture
+             </option>
+             <option id="planning-arrival-mode-other" value="other">
+              Autre
+             </option>
+            </select>
+           </div>
+           <div class="planning-field planning-field-full">
+            <label for="planning-arrival-place" id="planning-arrival-place-label">
+             Aéroport, gare ou point d’arrivée
+            </label>
+            <input id="planning-arrival-place" name="arrivalPlace" type="text"/>
+           </div>
+          </div>
+         </fieldset>
+         <!-- ===============================================
+     12.2.3 DÉPART DE MADRID
+  ================================================ -->
+         <fieldset class="planning-form-section">
+          <legend id="planning-departure-title">
+           Votre départ de Madrid
+          </legend>
+          <div class="planning-form-grid">
+           <div class="planning-field">
+            <label for="planning-departure-time" id="planning-departure-time-label">
+             Heure de départ prévue
+            </label>
+            <input id="planning-departure-time" name="departureTime" type="time"/>
+           </div>
+           <div class="planning-field">
+            <label for="planning-departure-mode" id="planning-departure-mode-label">
+             Moyen de départ
+            </label>
+            <select id="planning-departure-mode" name="departureMode">
+             <option id="planning-departure-mode-empty" value="">
+              Sélectionner
+             </option>
+             <option id="planning-departure-mode-plane" value="plane">
+              Avion
+             </option>
+             <option id="planning-departure-mode-train" value="train">
+              Train
+             </option>
+             <option id="planning-departure-mode-bus" value="bus">
+              Bus
+             </option>
+             <option id="planning-departure-mode-car" value="car">
+              Voiture
+             </option>
+             <option id="planning-departure-mode-other" value="other">
+              Autre
+             </option>
+            </select>
+           </div>
+           <div class="planning-field planning-field-full">
+            <label for="planning-departure-place" id="planning-departure-place-label">
+             Aéroport, gare ou point de départ
+            </label>
+            <input id="planning-departure-place" name="departurePlace" type="text"/>
+           </div>
+          </div>
+         </fieldset>
+         <!-- ===============================================
+     12.2.4 HÉBERGEMENT
+  ================================================ -->
+         <fieldset class="planning-form-section">
+          <legend id="planning-accommodation-title">
+           Votre hébergement
+          </legend>
+          <div class="planning-field">
+           <label for="planning-accommodation" id="planning-accommodation-label">
+            Nom ou adresse de l’hébergement
+           </label>
+           <input id="planning-accommodation" name="accommodation" type="text"/>
+          </div>
+          <p class="planning-field-help" id="planning-accommodation-help">
+           Cette information me permet d’optimiser
+      les départs, retours et déplacements
+      quotidiens.
+          </p>
+         </fieldset>
+         <!-- ===============================================
+     12.2.5 VOYAGEURS
+  ================================================ -->
+         <fieldset class="planning-form-section">
+          <legend id="planning-travelers-title">
+           Les voyageurs
+          </legend>
+          <div class="planning-form-grid">
+           <div class="planning-field">
+            <label for="planning-adults" id="planning-adults-label">
+             Adultes
+            </label>
+            <input id="planning-adults" min="1" name="adults" required="" type="number" value="1"/>
+           </div>
+           <div class="planning-field">
+            <label for="planning-children" id="planning-children-label">
+             Enfants
+            </label>
+            <input id="planning-children" min="0" name="children" type="number" value="0"/>
+           </div>
+           <!-- ===============================================
+     ÂGE DES ENFANTS
+================================================ -->
+           <div class="planning-children-ages" hidden="" id="planning-children-ages">
+            <p class="planning-field-help" id="planning-children-ages-help">
+             Indiquez l’âge qu’aura chaque enfant pendant le séjour.
+            </p>
+            <div class="planning-children-ages-grid" id="planning-children-ages-grid">
+             <!-- Sélecteurs générés par JavaScript -->
+            </div>
+           </div>
+          </div>
+          <div class="planning-choice-group">
+           <span class="planning-choice-title" id="planning-first-visit-title">
+            Est-ce votre première visite à Madrid ?
+           </span>
+           <div class="planning-inline-options">
+            <label class="planning-choice">
+             <input name="firstVisit" type="radio" value="yes"/>
+             <span id="planning-first-visit-yes">
+              Oui
+             </span>
+            </label>
+            <label class="planning-choice">
+             <input name="firstVisit" type="radio" value="no"/>
+             <span id="planning-first-visit-no">
+              Non
+             </span>
+            </label>
+           </div>
+          </div>
+         </fieldset>
+         <!-- ===============================================
+     12.2.6 FAVORIS TRAVELOPTIM
+  ================================================ -->
+         <fieldset class="planning-form-section planning-favorites-section">
+          <legend id="planning-favorites-title">
+           Vos favoris TravelOptim
+          </legend>
+          <label class="planning-favorites-choice">
+           <input checked="" id="planning-include-favorites" name="includeFavorites" type="checkbox"/>
+           <span>
+            <strong id="planning-favorites-choice-title">
+             Joindre mes favoris à ma demande
+            </strong>
+            <small id="planning-favorites-choice-text">
+             Les lieux que vous avez enregistrés
+          dans Mes favoris seront transmis avec
+          votre demande afin de mieux personnaliser
+          votre séjour.
+            </small>
+           </span>
+          </label>
+          <div class="planning-favorites-preview" id="planning-favorites-preview">
+           <!-- Liste générée plus tard par JavaScript -->
+          </div>
+          <input id="planning-favorites-data" name="traveloptimFavorites" type="hidden"/>
+         </fieldset>
+         <!-- ===============================================
+     12.2.7 DEMANDES PARTICULIÈRES
+  ================================================ -->
+         <fieldset class="planning-form-section">
+          <legend id="planning-request-title">
+           Vos demandes particulières
+          </legend>
+          <div class="planning-field">
+           <label for="planning-request" id="planning-request-label">
+            Y a-t-il autre chose que je devrais
+        savoir pour préparer votre séjour ?
+           </label>
+           <textarea id="planning-request" name="specialRequest" rows="6"></textarea>
+          </div>
+         </fieldset>
+         <!-- ===============================================
+     12.2.8 ENVOI
+  ================================================ -->
+         <div class="planning-form-submit-area">
+          <p class="planning-form-reminder" id="planning-form-reminder">
+           Votre demande est gratuite et sans
+      engagement. Aucun paiement ne sera
+      demandé à cette étape.
+          </p>
+          <button class="planning-submit-button" id="planning-submit-button" type="submit">
+           Envoyer ma demande
+          </button>
+         </div>
+        </form>
+        <!-- ===============================================
+     12.3 CONFIRMATION D'ENVOI
+================================================ -->
+        <section class="planning-success" hidden="" id="planning-success">
+         <div aria-hidden="true" class="planning-success-icon">
+          ✓
+         </div>
+         <h2 class="planning-success-title" id="planning-success-title">
+          Votre demande a bien été envoyée !
+         </h2>
+         <p class="planning-success-text" id="planning-success-text">
+          Merci pour votre confiance. Je vais examiner les informations de votre séjour afin de préparer une proposition adaptée à votre voyage à Madrid.
+         </p>
+         <p class="planning-success-email" id="planning-success-email">
+          Vous recevrez prochainement un courriel avec les prochaines étapes.
+         </p>
+         <p class="planning-success-blog-text" id="planning-success-blog-text">
+          En attendant, continuez à préparer votre séjour avec les articles TravelOptim.
+         </p>
+         <a class="planning-success-blog-button" href="https://traveloptim.com/" id="planning-success-blog-button" rel="noopener noreferrer" target="_blank">
+          Découvrir le blog TravelOptim
+         </a>
+        </section>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- =======================================================
+     13. VUE À PROPOS
+======================================================== -->
+
+<section
+class="module-view"
+id="about-view"
+hidden
+>
+
+<h2
+  class="section-title"
+  id="about-title"
+>
+  À propos de TravelOptim
+</h2>
+
+<div class="about-content">
+
+  <h3
+    class="about-tagline"
+    id="about-tagline"
+  >
+    Découvrez Madrid autrement, sans perdre de temps.
+  </h3>
+
+  <p
+    class="about-text"
+    id="about-text-1"
+  ></p>
+
+  <p
+    class="about-text"
+    id="about-text-2"
+  ></p>
+
+  <p
+    class="about-text"
+    id="about-text-3"
+  ></p>
+
+  <p
+    class="about-destination"
+    id="about-destination"
+  ></p>
+
+  <div
+  class="about-copyright"
+  id="about-copyright"
+>
+  © 2026 TravelOptim. Tous droits réservés.
+</div>
+
+</div>
+
+</section>
+  <!-- =========================================================
+       14. DONNÉES
+  ========================================================== -->
+  <script src="incontournables.js">
+  </script>
+  <script src="places.js">
+  </script>
+  <script src="monuments.js">
+  </script>
+  <script src="musees.js">
+  </script>
+  <script src="parcs.js">
+  </script>
+  <script src="opera-flamenco.js">
+  </script>
+  <script src="evenements-sportifs.js">
+  </script>
+  <script src="panoramique.js">
+  </script>
+  <script src="famille.js">
+  </script>
+  <script src="gastronomie.js">
+  </script>
+  <script src="shopping.js">
+  </script>
+  <script src="quartiers.js">
+  </script>
+  <script src="transport.js">
+  </script>
+  <script src="itineraires.js">
+  </script>
+  <!-- =========================================================
+       15. DÉPENDANCES CARTOGRAPHIQUES
+  ========================================================== -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+  </script>
+  <!-- OpenFreeMap / MapLibre -->
+  <script src="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.js">
+  </script>
+  <script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet/leaflet-maplibre-gl.js">
+  </script>
+  <!-- Bouton plein écran -->
+  <script src="https://unpkg.com/leaflet.fullscreen/dist/Control.FullScreen.umd.js">
+  </script>
+  <!-- =========================================================
+       16. MOTEUR PRINCIPAL
+  ========================================================== -->
+  <script src="app.js">
+  </script>
+ </body>
+</html>
