@@ -36,7 +36,7 @@ const quartiers = [
     },
 
     image:
-      "images/madrid-de-los-austrias.webp",
+      "images/lieux/madrid-de-los-austrias.webp",
 
     photo: {
       author: "Carlos Delgado",
@@ -68,7 +68,7 @@ const quartiers = [
     },
 
     image:
-      "images/sol-gran-via.webp",
+      "images/lieux/sol-gran-via.webp",
 
     photo: {
       author: "Tomás Fano",
@@ -100,7 +100,7 @@ const quartiers = [
     },
 
     image:
-      "images/paseo-del-arte.webp",
+      "images/lieux/paseo-del-arte.webp",
 
     photo: {
       author: "Jean-Pierre Dalbéra from Paris, France",
@@ -132,7 +132,7 @@ const quartiers = [
     },
 
     image:
-      "images/la-latina.webp",
+      "images/lieux/la-latina.webp",
 
     photo: {
       author: "ajay_suresh",
@@ -164,7 +164,7 @@ const quartiers = [
     },
 
     image:
-      "images/barrio-de-las-letras.webp",
+      "images/lieux/barrio-de-las-letras.webp",
 
     photo: {
       author: "Edgardo W. Olivera from Montevideo, Uruguay",
@@ -196,7 +196,7 @@ const quartiers = [
     },
 
     image:
-      "images/retiro.webp",
+      "images/lieux/retiro.webp",
 
     photo: {
       author: "Diego Delso",
@@ -228,7 +228,7 @@ const quartiers = [
     },
 
     image:
-      "images/barrio-de-salamanca.webp",
+      "images/lieux/barrio-de-salamanca.webp",
 
     photo: {
       author: "Luis García",
@@ -260,7 +260,7 @@ const quartiers = [
     },
 
     image:
-      "images/malasana.webp",
+      "images/lieux/malasana.webp",
 
     photo: {
       author: "Zarateman",
@@ -292,7 +292,7 @@ const quartiers = [
     },
 
     image:
-      "images/chueca.webp",
+      "images/lieux/chueca.webp",
 
     photo: {
       author: "Fred Romero from Paris, France",
@@ -324,7 +324,7 @@ const quartiers = [
     },
 
     image:
-      "images/chamberi.webp",
+      "images/lieux/chamberi.webp",
 
     photo: {
       author: "Zarateman",
@@ -356,7 +356,7 @@ const quartiers = [
     },
 
     image:
-      "images/princesa.webp",
+      "images/lieux/princesa.webp",
 
     photo: {
       author: "Tiia Monto",
@@ -388,7 +388,7 @@ const quartiers = [
     },
 
     image:
-      "images/castellana.webp",
+      "images/lieux/castellana.webp",
 
     photo: {
       author: "Z3144228",
