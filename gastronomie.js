@@ -24,7 +24,7 @@ const gastronomie = [
     },
 
     image:
-      "images/restaurants-historiques.webp",
+      "images/lieux/restaurants-historiques.webp",
 
     photo: {
       author: "Brian Adamson from London",
@@ -119,7 +119,7 @@ const gastronomie = [
     },
 
     image:
-      "images/specialites-madrilenes.webp",
+      "images/lieux/specialites-madrilenes.webp",
 
     photo: {
       author: "ctj71081",
@@ -222,7 +222,7 @@ const gastronomie = [
     },
 
     image:
-      "images/marches-gastronomiques.webp",
+      "images/lieux/marches-gastronomiques.webp",
 
     photo: {
       author: "Marek Slusarczyk",
