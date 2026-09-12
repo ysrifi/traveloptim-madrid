@@ -23,7 +23,7 @@ const transport = [
       en: "Airport connections"
     },
 
-    image: "images/connexion-aeroport.webp",
+    image: "images/lieux/connexion-aeroport.webp",
 
     photo: {
       author: "M.Peinado from Alcalá de Henares, España",
@@ -148,7 +148,7 @@ const transport = [
       en: "Madrid Metro"
     },
 
-    image: "images/metro-madrid.webp",
+    image: "images/lieux/metro-madrid.webp",
 
     photo: {
       author: "Javitomad",
@@ -253,7 +253,7 @@ const transport = [
       en: "Essential Metro lines"
     },
 
-    image: "images/lignes-importantes.webp",
+    image: "images/lieux/lignes-importantes.webp",
 
     photo: {
       author: "Robot8A",
@@ -718,7 +718,7 @@ const transport = [
       en: "Useful bus routes"
     },
 
-    image: "images/bus-utiles.webp",
+    image: "images/lieux/bus-utiles.webp",
 
     photo: {
       author: "Diario de Madrid",
