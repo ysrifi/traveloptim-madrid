@@ -432,8 +432,8 @@ const panoramique = [
 
     hours: {
       type: "text",
-      fr: "Fermé pour rénovation · réouverture prévue au 1er trimestre 2027",
-      en: "Closed for renovation · reopening expected in Q1 2027"
+      fr: "Fermé pour rénovation",
+      en: "Closed for renovation"
     },
 
     price: {
