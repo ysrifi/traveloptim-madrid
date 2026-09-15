@@ -9466,8 +9466,15 @@ function updatePlanningTexts() {
   }
 
   if (planningExampleButton) {
+
     planningExampleButton.textContent =
       getText("planningExampleButton");
+  
+    planningExampleButton.href =
+      currentLanguage === "fr"
+        ? "prototype-planification-fr.pdf"
+        : "prototype-planification-en.pdf";
+  
   }
 
   if (planningExampleNote) {
